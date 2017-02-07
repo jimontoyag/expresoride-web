@@ -4,8 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
-import {ScheduleModule} from 'primeng/primeng';
-import {RatingModule} from 'primeng/primeng';
+import {ScheduleModule, DialogModule} from 'primeng/primeng';
 
 
 
@@ -18,7 +17,7 @@ import {RatingModule} from 'primeng/primeng';
     FormsModule,
     HttpModule,
     ScheduleModule,
-    RatingModule
+    DialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]

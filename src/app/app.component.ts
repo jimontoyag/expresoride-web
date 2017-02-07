@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']  
 })
 export class AppComponent {
-  title = 'app works!';
+  title = 'Schedule Rides';
   events = [
             {
                 "title": "All Day Event",
@@ -14,23 +14,28 @@ export class AppComponent {
             },
             {
                 "title": "Long Event",
-                "start": "2016-01-07",
-                "end": "2016-01-10"
+                "start": "2017-01-07",
+                "end": "2017-01-10"
             },
             {
                 "title": "Repeating Event",
-                "start": "2016-01-09T16:00:00"
+                "start": "2017-01-09T16:00:00"
             },
             {
                 "title": "Repeating Event",
-                "start": "2016-01-16T16:00:00"
+                "start": "2017-01-16T16:00:00"
             },
             {
                 "title": "Conference",
-                "start": "2016-01-11",
-                "end": "2016-01-13"
+                "start": "2017-01-11",
+                "end": "2017-01-13"
             }
         ];
   
-  val1: number;
+  display: boolean = false;
+
+    showDialog() {
+        this.display = true;
+    }
+  
 }

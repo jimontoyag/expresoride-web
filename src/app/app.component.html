@@ -1,4 +1,8 @@
 <h1>
   {{title}}
 </h1>
-<p-schedule [events]="events"></p-schedule>
+<p-schedule [events]="events" (onEventClick)="showDialog()"></p-schedule>
+
+<p-dialog header="Title" [(visible)]="display" [modal]="true">
+    Leo es GAY
+</p-dialog>
