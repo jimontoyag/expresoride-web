@@ -4,6 +4,10 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
+import {ScheduleModule} from 'primeng/primeng';
+import {RatingModule} from 'primeng/primeng';
+
+
 
 @NgModule({
   declarations: [
@@ -12,7 +16,9 @@ import { AppComponent } from './app.component';
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    ScheduleModule,
+    RatingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
