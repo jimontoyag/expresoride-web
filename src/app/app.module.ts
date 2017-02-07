@@ -5,8 +5,15 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import {ScheduleModule, DialogModule} from 'primeng/primeng';
+import { AngularFireModule } from 'angularfire2';
 
-
+export const firebaseConfig = {
+  apiKey: 'AIzaSyBK0qd_4ojUSmXNqlTnXedoKigJkxPsPlo',
+  authDomain: 'expresoride.firebaseapp.com',
+  databaseURL: 'https://expresoride.firebaseio.com',
+  storageBucket: 'expresoride.appspot.com',
+  messagingSenderId: '741575044761'
+};
 
 @NgModule({
   declarations: [
@@ -17,7 +24,8 @@ import {ScheduleModule, DialogModule} from 'primeng/primeng';
     FormsModule,
     HttpModule,
     ScheduleModule,
-    DialogModule
+    DialogModule,
+    AngularFireModule.initializeApp(firebaseConfig)
   ],
   providers: [],
   bootstrap: [AppComponent]

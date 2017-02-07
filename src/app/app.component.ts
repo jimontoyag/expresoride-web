@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AngularFire, FirebaseListObservable } from 'angularfire2';
 
 @Component({
   selector: 'app-root',
@@ -33,9 +34,29 @@ export class AppComponent {
         ];
   
   display: boolean = false;
+  event: MyEvent = new MyEvent();
+  
+  tituloDialogo: String;
 
-    showDialog() {
+    showDialog(event) {
         this.display = true;
+        this.tituloDialogo= event.calEvent.title;
+        this.event = new MyEvent();
+        this.event.comment = event.calEvent.comment;
     }
   
+  items: FirebaseListObservable<any[]>;
+  constructor(af: AngularFire) {
+    this.items = af.database.list('/eventos');
+  }
+  
+}
+
+export class MyEvent {
+    id: number;
+    title: string;
+    start: string;
+    end: string;
+    allDay: boolean = false;
+    comment: string;
 }
