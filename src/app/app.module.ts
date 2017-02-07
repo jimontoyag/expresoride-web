@@ -4,8 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
-import {ScheduleModule, DialogModule} from 'primeng/primeng';
-import { AngularFireModule } from 'angularfire2';
+import {ScheduleModule, DialogModule, ButtonModule} from 'primeng/primeng';
+import { AngularFireModule, AuthProviders, AuthMethods  } from 'angularfire2';
 
 export const firebaseConfig = {
   apiKey: 'AIzaSyBK0qd_4ojUSmXNqlTnXedoKigJkxPsPlo',
@@ -13,6 +13,11 @@ export const firebaseConfig = {
   databaseURL: 'https://expresoride.firebaseio.com',
   storageBucket: 'expresoride.appspot.com',
   messagingSenderId: '741575044761'
+};
+
+const myFirebaseAuthConfig = {
+  provider: AuthProviders.Facebook,
+  method: AuthMethods.Popup
 };
 
 @NgModule({
@@ -25,7 +30,8 @@ export const firebaseConfig = {
     HttpModule,
     ScheduleModule,
     DialogModule,
-    AngularFireModule.initializeApp(firebaseConfig)
+    ButtonModule,
+    AngularFireModule.initializeApp(firebaseConfig, myFirebaseAuthConfig )
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,7 +1,10 @@
 <h1>
   {{title}}
 </h1>
-<p-schedule [events]="items | async" (onEventClick)="showDialog($event)"></p-schedule>
+
+<button pButton type="button" label="Login Facebook" (click)="login()" *ngIf="!dispSchedule"></button>
+<button pButton type="button" label="LogOut" (click)="logout()" *ngIf="dispSchedule"></button>
+<p-schedule [events]="items | async" (onEventClick)="showDialog($event)" *ngIf="dispSchedule"></p-schedule>
 
 <p-dialog [header]="tituloDialogo" [(visible)]="display" [modal]="true">
     {{event.comment}}

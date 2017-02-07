@@ -35,8 +35,12 @@ export class AppComponent {
   
   display: boolean = false;
   event: MyEvent = new MyEvent();
+  af : AngularFire;
+  dispSchedule:boolean = false;
   
   tituloDialogo: String;
+  
+    
 
     showDialog(event) {
         this.display = true;
@@ -47,7 +51,23 @@ export class AppComponent {
   
   items: FirebaseListObservable<any[]>;
   constructor(af: AngularFire) {
-    this.items = af.database.list('/eventos');
+    this.af = af;
+    this.items = af.database.list('/eventos');   
+    this.af.auth.subscribe(auth => {
+      if(auth == null){
+        this.dispSchedule = false;
+      }else{
+        this.dispSchedule = true;
+      } 
+    });
+  }
+  
+   login() {
+    this.af.auth.login();   
+  }
+  
+  logout() {
+     this.af.auth.logout();
   }
   
 }
