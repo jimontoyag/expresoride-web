@@ -1,15 +1,28 @@
 <h1>
   {{title}}
 </h1>
-
-<button pButton type="button" label="Login Facebook" (click)="login()" *ngIf="!dispSchedule"></button>
-<button pButton type="button" label="LogOut" (click)="logout()" *ngIf="dispSchedule"></button>
-<p-schedule [events]="eventos | async" (onEventClick)="showDialog($event)" *ngIf="dispSchedule"></p-schedule>
-
-<p-dialog  [(visible)]="display" [modal]="true" *ngIf="usuario">
-	<header>
-		<img src="{{usuario.photoURL}}" />	
-		{{usuario.displayName}}
-	</header>   
-    {{event.descripcion}}    
-</p-dialog>
+<div class="container-fluid">
+	<button pButton type="button" label="Login Facebook" (click)="login()" *ngIf="!dispSchedule"></button>
+	<button pButton type="button" label="LogOut" (click)="logout()" *ngIf="dispSchedule"></button>
+	<p-schedule [events]="eventos | async" (onEventClick)="showDialog($event)" *ngIf="dispSchedule"></p-schedule>
+	<div class="row">
+		<p-dialog  [(visible)]="display" [modal]="true" *ngIf="usuario">
+			<div class="col-xs-12 col-sm-6 col-md-8">
+				<header>
+					<div class="profile">
+					<img src="{{usuario.photoURL}}" class="profile-picture"/>
+					<p class="profile-name">{{usuario.displayName}}</p>
+					</div>
+				</header>   
+				<div class="event">
+	    			<p>{{event.descripcion}}</p>
+	   				<p>{{event.origen}}</p>
+	   				<p>{{event.destino}} </p>
+	    			<p>{{event.start}}</p> 
+	    			<p>{{event.end}}</p> 
+	    			<p>{{event.descripcion}}</p>  
+	    		</div>
+	    	</div>
+		</p-dialog>
+	</div>
+</div>

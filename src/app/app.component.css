@@ -1,0 +1,22 @@
+.profile{
+	float: left;
+	width: 500px;
+}
+
+.profile-picture {
+	border-radius: 50%;
+	height: 100px;
+	width: 100px;
+	float:left;
+
+}
+.profile-name{
+	margin-top: 20px;
+	font-size: 30px;
+	margin-left: 10px;
+	float: left;
+}
+.event{
+	font-size: 25px;
+	font-family: Helvetica Neue, Arial;
+}
