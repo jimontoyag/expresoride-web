@@ -11,23 +11,19 @@ import { Evento } from './modelo/evento';
 export class AppComponent {
   title = 'Schedule Rides';
   
-  display: boolean = false;
   event: Evento = new Evento();
-  af : AngularFire;
+  display: boolean = false;
+  
+  af : AngularFire;  
+  
   dispSchedule:boolean = false;  
-  tituloDialogo: String;
-  fotoURL: String;
   
-  usuario: firebase.UserInfo;
-  
-    
+  usuario: firebase.UserInfo;    
 
     showDialog(event) {
         this.display = true;
         this.event = new Evento();
-        this.event.descripcion = event.calEvent.descripcion;
-        this.tituloDialogo = this.usuario.displayName;
-        this.fotoURL = this.usuario.photoURL;
+        this.event = event.calEvent;
     }
   
   eventos: FirebaseListObservable<Evento[]>;
