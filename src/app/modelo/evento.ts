@@ -8,4 +8,6 @@ export class Evento {
   origen: string;
   usuario: string;
   cupos: number;
+  fotoUrl: string;
+  nombreUsuario: string;
 }

@@ -6,12 +6,12 @@
 	<button pButton type="button" label="LogOut" (click)="logout()" *ngIf="dispSchedule"></button>
 	<p-schedule [events]="eventos | async" (onEventClick)="showDialog($event)" *ngIf="dispSchedule"></p-schedule>
 	<div class="row">
-		<p-dialog  [(visible)]="display" [modal]="true" *ngIf="usuario">
+		<p-dialog  [(visible)]="display" [modal]="true" >
 			<div class="col-xs-12 col-sm-6 col-md-8">
 				<header>
 					<div class="profile">
-					<img src="{{usuario.photoURL}}" class="profile-picture"/>
-					<p class="profile-name">{{usuario.displayName}}</p>
+					<img src="{{event.fotoUrl}}" class="profile-picture"/>
+					<p class="profile-name">{{event.nombreUsuario}}</p>
 					</div>
 				</header>   
 				<div class="event">
