@@ -4,8 +4,12 @@
 
 <button pButton type="button" label="Login Facebook" (click)="login()" *ngIf="!dispSchedule"></button>
 <button pButton type="button" label="LogOut" (click)="logout()" *ngIf="dispSchedule"></button>
-<p-schedule [events]="items | async" (onEventClick)="showDialog($event)" *ngIf="dispSchedule"></p-schedule>
+<p-schedule [events]="eventos | async" (onEventClick)="showDialog($event)" *ngIf="dispSchedule"></p-schedule>
 
-<p-dialog [header]="tituloDialogo" [(visible)]="display" [modal]="true">
-    {{event.comment}}
+<p-dialog  [(visible)]="display" [modal]="true" *ngIf="usuario">
+	<header>
+		<img src="{{usuario.photoURL}}" />	
+		{{usuario.displayName}}
+	</header>   
+    {{event.descripcion}}    
 </p-dialog>

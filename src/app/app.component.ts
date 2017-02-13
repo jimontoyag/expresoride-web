@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { AngularFire, FirebaseListObservable } from 'angularfire2';
+import { AngularFire, FirebaseListObservable, FirebaseAuthState } from 'angularfire2';
+
+import { Evento } from './modelo/evento';
 
 @Component({
   selector: 'app-root',
@@ -8,58 +10,44 @@ import { AngularFire, FirebaseListObservable } from 'angularfire2';
 })
 export class AppComponent {
   title = 'Schedule Rides';
-  events = [
-            {
-                "title": "All Day Event",
-                "start": "2017-01-01"
-            },
-            {
-                "title": "Long Event",
-                "start": "2017-01-07",
-                "end": "2017-01-10"
-            },
-            {
-                "title": "Repeating Event",
-                "start": "2017-01-09T16:00:00"
-            },
-            {
-                "title": "Repeating Event",
-                "start": "2017-01-16T16:00:00"
-            },
-            {
-                "title": "Conference",
-                "start": "2017-01-11",
-                "end": "2017-01-13"
-            }
-        ];
   
   display: boolean = false;
-  event: MyEvent = new MyEvent();
+  event: Evento = new Evento();
   af : AngularFire;
-  dispSchedule:boolean = false;
-  
+  dispSchedule:boolean = false;  
   tituloDialogo: String;
+  fotoURL: String;
+  
+  usuario: firebase.UserInfo;
   
     
 
     showDialog(event) {
         this.display = true;
-        this.tituloDialogo= event.calEvent.title;
-        this.event = new MyEvent();
-        this.event.comment = event.calEvent.comment;
+        this.event = new Evento();
+        this.event.descripcion = event.calEvent.descripcion;
+        this.tituloDialogo = this.usuario.displayName;
+        this.fotoURL = this.usuario.photoURL;
     }
   
-  items: FirebaseListObservable<any[]>;
+  eventos: FirebaseListObservable<Evento[]>;
   constructor(af: AngularFire) {
-    this.af = af;
-    this.items = af.database.list('/eventos');   
+    this.af = af;    
     this.af.auth.subscribe(auth => {
-      if(auth == null){
+      this.cambiaEstadoSesion(auth);
+    });
+  }
+  
+  private cambiaEstadoSesion(auth:FirebaseAuthState){
+    if(auth == null){
+        this.usuario = null;
         this.dispSchedule = false;
+        this.eventos = null;
       }else{
+        this.usuario = auth.facebook;
+        this.eventos = this.af.database.list('/eventos');  
         this.dispSchedule = true;
       } 
-    });
   }
   
    login() {
@@ -70,13 +58,4 @@ export class AppComponent {
      this.af.auth.logout();
   }
   
-}
-
-export class MyEvent {
-    id: number;
-    title: string;
-    start: string;
-    end: string;
-    allDay: boolean = false;
-    comment: string;
 }
