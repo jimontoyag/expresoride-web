@@ -16,9 +16,11 @@ import { Evento } from './modelo/evento';
 })
 export class AppComponent {
   title = 'Schedule Rides';
+  header: any;
   
   event: Evento = new Evento();
   display: boolean = false;
+  displayCrear: boolean = false;
   
   private af : AngularFire;  
   private fb: FacebookService;
@@ -30,11 +32,15 @@ export class AppComponent {
   eventos: FirebaseListObservable<Evento[]>;  
   
   constructor(af: AngularFire, fb: FacebookService) {
+    this.header = {
+      left: 'prev,next today',
+      center: 'title',
+      right: 'month,agendaWeek,agendaDay'
+    };
     this.af = af;    
     this.fb = fb;
     let fbParams: FacebookInitParams = {
                                    appId: '1832413313701021',
-                                   xfbml: true,
                                    version: 'v2.8'
                                    };
     this.fb.init(fbParams);
@@ -48,18 +54,42 @@ export class AppComponent {
         this.usuario = null;
         this.dispSchedule = false;
         this.eventos = null;
+        this.fb.logout().then(rel => {});
       }else{
+        this.fb.login().then(res => {
         this.usuario = auth.facebook;
-        this.af.database.list('/usuarios').update(this.usuario.uid, { 
-          nombre: this.usuario.displayName,
-          fotoUrl:this.usuario.photoURL});
-        this.eventos = this.af.database.list('/eventos'); 
-        this.dispSchedule = true;
+        this.peteneceAGrupo('502606019798663').then(pertenece=>{
+          this.af.database.list('/usuarios').update(this.usuario.uid, { 
+            nombre: this.usuario.displayName,
+            fotoUrl:this.usuario.photoURL});
+          this.eventos = this.af.database.list('/eventos'); 
+          this.dispSchedule = true;                    
+          });                        
+        });         
       } 
   }
   
-  private catchErrors() {
-    
+  private peteneceAGrupo(grupo:string): Promise<boolean>{
+    return this.fb.api('/'+grupo+'/members?limit=100000').then(res => {
+      var pertenece: boolean = false;
+      res.data.forEach(member =>{
+        if(this.usuario.uid == member.id) return true;  
+      });
+      return false;
+    });
+  }
+  
+  crearEvento(){
+      this.peteneceAGrupo('502606019798663').then(pertenece=>{
+          this.af.database.list('/eventos').push(this.event); 
+          this.displayCrear=false;
+                      
+          });  
+  }
+  
+  preCrearEvento(){
+      this.event = new Evento();
+      this.displayCrear = true;
   }
   
   showDialog(event) {
@@ -72,8 +102,8 @@ export class AppComponent {
     this.display = true;
    }
   
-   login() {
-    this.af.auth.login();   
+   login() {         
+     this.af.auth.login(); 
   }
   
   logout() {

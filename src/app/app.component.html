@@ -4,7 +4,8 @@
 <div class="container-fluid">
 	<button pButton type="button" label="Login Facebook" (click)="login()" *ngIf="!dispSchedule"></button>
 	<button pButton type="button" label="LogOut" (click)="logout()" *ngIf="dispSchedule"></button>
-	<p-schedule [events]="eventos | async" (onEventClick)="showDialog($event)" *ngIf="dispSchedule"></p-schedule>
+	<button pButton type="button" label="Crear Evento" (click)="preCrearEvento()" *ngIf="dispSchedule"></button>
+	<p-schedule [events]="eventos | async" (onEventClick)="showDialog($event)" *ngIf="dispSchedule" [header]="header" [defaultView]="'agendaWeek'"></p-schedule>
 	<div class="row">
 		<p-dialog  [(visible)]="display" [modal]="true" >
 			<div class="col-xs-12 col-sm-6 col-md-8">
@@ -16,6 +17,21 @@
 				</header>   
 				<div class="event">
 	    			<p>{{event.descripcion}}</p>
+	   				<p>{{event.origen}}</p>
+	   				<p>{{event.destino}} </p>
+	    			<p>{{event.start}}</p> 
+	    			<p>{{event.end}}</p> 
+	    			<p>{{event.descripcion}}</p>  
+	    		</div>
+	    	</div>
+		</p-dialog>
+		
+		<p-dialog  [(visible)]="displayCrear" [modal]="true" >
+		       <header>
+					Crear nuevo evento
+				</header> 
+			<div class="col-xs-12 col-sm-6 col-md-8">				  
+				<div class="event">
 	   				<p>{{event.origen}}</p>
 	   				<p>{{event.destino}} </p>
 	    			<p>{{event.start}}</p> 
