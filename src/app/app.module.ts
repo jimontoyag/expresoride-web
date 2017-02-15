@@ -17,7 +17,7 @@ export const firebaseConfig = {
 
 const myFirebaseAuthConfig = {
   provider: AuthProviders.Facebook,
-  method: AuthMethods.Popup
+  method: AuthMethods.Redirect
 };
 
 @NgModule({

@@ -1,9 +1,13 @@
-<h1>
-  {{title}}
-</h1>
-<div class="container-fluid">
-	<button pButton type="button" label="Login Facebook" (click)="login()" *ngIf="!dispSchedule"></button>
-	<button pButton type="button" label="LogOut" (click)="logout()" *ngIf="dispSchedule"></button>
+<div style="height:100%;width:100%;text-align:center;background-color:#20272a; position: absolute; z-index: 100;" *ngIf="!dispSchedule">
+                <div style="padding-top:15%">
+                <img src="./assets/sources/logo.png" style="height:300px;"/>
+                </div>
+                
+                <div style="margin-top:5%">
+                    <img src="./assets/sources/loading.gif" *ngIf="cargando"/>
+                    <button pButton type="button" label="Acceder" (click)="login()" *ngIf="!cargando"></button>
+                </div>
+            </div> 	
 	<button pButton type="button" label="Crear Evento" (click)="preCrearEvento()" *ngIf="dispSchedule"></button>
 	<p-schedule [events]="eventos | async" (onEventClick)="showDialog($event)" *ngIf="dispSchedule" [header]="header" [defaultView]="'agendaWeek'"></p-schedule>
 	<div class="row">
@@ -40,5 +44,4 @@
 	    		</div>
 	    	</div>
 		</p-dialog>
-	</div>
 </div>
