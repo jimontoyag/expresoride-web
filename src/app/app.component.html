@@ -8,10 +8,11 @@
                     <button pButton type="button" label="Acceder" (click)="login()" *ngIf="!cargando"></button>
                 </div>
             </div> 	
+<div class="container">
 	<button pButton type="button" label="Crear Evento" (click)="preCrearEvento()" *ngIf="dispSchedule"></button>
 	<p-schedule [events]="eventos | async" (onEventClick)="showDialog($event)" *ngIf="dispSchedule" [header]="header" [defaultView]="'agendaWeek'"></p-schedule>
-		<p-dialog  [(visible)]="display" [modal]="true" >
-				<header>
+		<p-dialog  [(visible)]="display" [modal]="true" [responsive]="true"  [closeOnEscape]="true" >
+				<header [draggable]="true">
 					<img src="{{event.fotoUrl}}" class="profile-picture"/>
 					<p class="profile-name">{{event.nombreUsuario}}</p>
 				</header>   
@@ -24,8 +25,8 @@
 	    		</div>
 		</p-dialog>
 		
-		<p-dialog  [(visible)]="displayCrear" [modal]="true" *ngIf="usuario && displayCrear">
-		       <header>
+		<p-dialog  [(visible)]="displayCrear" [responsive]="true" [closeOnEscape]="true" [modal]="true" *ngIf="usuario && displayCrear">
+		       <header [draggable]="true">
 					<img src="{{usuario.photoURL}}" class="profile-picture"/>
 					<p class="profile-name">{{usuario.displayName}}</p>
 				</header>  
@@ -38,3 +39,4 @@
 				    <button pButton type="button" label="Crear" (click)="crearEvento()" ></button>
 				</div>    			
 		</p-dialog>
+</div>
