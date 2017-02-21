@@ -30,3 +30,11 @@
 td{
 	background: blue;
 }
+
+.crear_evento{
+	height: 800px;
+}
+
+.form {
+	padding-right: 25px;
+}

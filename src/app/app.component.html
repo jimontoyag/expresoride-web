@@ -25,18 +25,26 @@
 	    		</div>
 		</p-dialog>
 		
-		<p-dialog  [(visible)]="displayCrear" [responsive]="true" [closeOnEscape]="true" [modal]="true" *ngIf="usuario && displayCrear">
+		<p-dialog class="crear_evento"  [(visible)]="displayCrear" [responsive]="true" [height]=550 [closeOnEscape]="true" [resizable]="true" [modal]="true" *ngIf="usuario && displayCrear">
 		       <header [draggable]="true">
 					<img src="{{usuario.photoURL}}" class="profile-picture"/>
 					<p class="profile-name">{{usuario.displayName}}</p>
 				</header>  
-				<div class="ui-g">
-				    <div class="ui-g-6"><p-dropdown [options]="lugares" [(ngModel)]="event.origen" [autoWidth]="false"></p-dropdown></div>
-				    <div class="ui-g-6"><p-dropdown [options]="lugares" [(ngModel)]="event.destino" [autoWidth]="false"></p-dropdown></div>
-				    <div class="ui-g-6"><p-calendar [(ngModel)]="event.start" [showTime]="true"></p-calendar></div>
-				    <div class="ui-g-6"><p-calendar [(ngModel)]="event.end" [showTime]="true"></p-calendar></div>
-				    <div class="ui-g-12"><textarea pInputTextarea [(ngModel)]="event.descripcion"></textarea></div>
-				    <button pButton type="button" label="Crear" (click)="crearEvento()" ></button>
-				</div>    			
+			
+					<div class="ui-grid-row">
+        				<div class="ui-g-6 form"><p-dropdown [options]="lugares" [(ngModel)]="event.origen" [autoWidth]="false"></p-dropdown></div>
+				    	<div class="ui-g-6 form"><p-dropdown [options]="lugares" [(ngModel)]="event.destino" [autoWidth]="false"></p-dropdown></div>
+       			 	</div>
+					<div class="ui-grid-row">
+				    	<div class="ui-g-6 form"><p-calendar [(ngModel)]="event.start" [showTime]="true"></p-calendar></div>
+				    <div class="ui-g-6 form"><p-calendar [(ngModel)]="event.end" [showTime]="true"></p-calendar></div>
+       				 </div>
+					<div class="ui-grid-row">
+				    	<div class="ui-g-12 form"><textarea pInputTextarea [(ngModel)]="event.descripcion"></textarea></div>
+						<button pButton type="button" label="Crear" (click)="crearEvento()" ></button>
+       			 	</div>
+				    
+				    
+				  			
 		</p-dialog>
 </div>
