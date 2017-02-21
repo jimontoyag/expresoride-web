@@ -20,3 +20,7 @@
 	font-size: 25px;
 	font-family: Helvetica Neue, Arial;
 }
+
+td{
+	background: blue;
+}

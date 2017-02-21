@@ -10,14 +10,10 @@
             </div> 	
 	<button pButton type="button" label="Crear Evento" (click)="preCrearEvento()" *ngIf="dispSchedule"></button>
 	<p-schedule [events]="eventos | async" (onEventClick)="showDialog($event)" *ngIf="dispSchedule" [header]="header" [defaultView]="'agendaWeek'"></p-schedule>
-	<div class="row">
 		<p-dialog  [(visible)]="display" [modal]="true" >
-			<div class="col-xs-12 col-sm-6 col-md-8">
 				<header>
-					<div class="profile">
 					<img src="{{event.fotoUrl}}" class="profile-picture"/>
 					<p class="profile-name">{{event.nombreUsuario}}</p>
-					</div>
 				</header>   
 				<div class="event">
 	    			<p>{{event.descripcion}}</p>
@@ -25,23 +21,20 @@
 	   				<p>{{event.destino}} </p>
 	    			<p>{{event.start}}</p> 
 	    			<p>{{event.end}}</p> 
-	    			<p>{{event.descripcion}}</p>  
 	    		</div>
-	    	</div>
 		</p-dialog>
 		
-		<p-dialog  [(visible)]="displayCrear" [modal]="true" >
+		<p-dialog  [(visible)]="displayCrear" [modal]="true" *ngIf="usuario && displayCrear">
 		       <header>
-					Crear nuevo evento
-				</header> 
-			<div class="col-xs-12 col-sm-6 col-md-8">				  
-				<div class="event">
-	   				<p>{{event.origen}}</p>
-	   				<p>{{event.destino}} </p>
-	    			<p>{{event.start}}</p> 
-	    			<p>{{event.end}}</p> 
-	    			<p>{{event.descripcion}}</p>  
-	    		</div>
-	    	</div>
+					<img src="{{usuario.photoURL}}" class="profile-picture"/>
+					<p class="profile-name">{{usuario.displayName}}</p>
+				</header>  
+				<div class="ui-g">
+				    <div class="ui-g-6"><p-dropdown [options]="lugares" [(ngModel)]="event.origen" [autoWidth]="false"></p-dropdown></div>
+				    <div class="ui-g-6"><p-dropdown [options]="lugares" [(ngModel)]="event.destino" [autoWidth]="false"></p-dropdown></div>
+				    <div class="ui-g-6"><p-calendar [(ngModel)]="event.start" [showTime]="true"></p-calendar></div>
+				    <div class="ui-g-6"><p-calendar [(ngModel)]="event.end" [showTime]="true"></p-calendar></div>
+				    <div class="ui-g-12"><textarea pInputTextarea [(ngModel)]="event.descripcion"></textarea></div>
+				    <button pButton type="button" label="Crear" (click)="crearEvento()" ></button>
+				</div>    			
 		</p-dialog>
-</div>

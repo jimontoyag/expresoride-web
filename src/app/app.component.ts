@@ -22,6 +22,7 @@ export class AppComponent {
   display: boolean = false;
   displayCrear: boolean = false;
   cargando: boolean = true;
+  lugares: any[];
   
   private token:string;
   
@@ -30,11 +31,14 @@ export class AppComponent {
   
   dispSchedule:boolean = false;  
   
-  private usuario: firebase.UserInfo;    
+  usuario: firebase.UserInfo;    
   
   eventos: FirebaseListObservable<Evento[]>;  
   
   constructor(af: AngularFire, fb: FacebookService) {
+    this.lugares = [];
+    this.lugares.push({label:'Bogota', value:'bgt'});
+    this.lugares.push({label:'Ibague', value:'ibg'});
     this.header = {
       left: 'prev,next today',
       center: 'title',
@@ -80,7 +84,12 @@ export class AppComponent {
             this.af.database.list('/usuarios').update(this.usuario.uid, { 
               nombre: this.usuario.displayName,
               fotoUrl:this.usuario.photoURL});
-            this.eventos = this.af.database.list('/eventos'); 
+            this.eventos = this.af.database.list('/eventos', {
+                                                                query: {
+                                                                  orderByChild: 'end',
+                                                                  startAt: this.hoy()
+                                                                }
+                                                              }); 
             this.dispSchedule = true;   
             this.cargando = false;  
           }else{
@@ -102,9 +111,33 @@ export class AppComponent {
       return pertenece;
     });
   }
+
+  private hoy():string{
+    let hoy: Date = new Date(Date.now());
+    return this.toStringDate(hoy);
+  }
+
+  private aMes(mes:number):string{
+    mes++;
+    return this.ceroAIzq(mes);
+  }
+
+  private ceroAIzq(num:number):string{
+    if(num < 10){
+      return '0'+num;
+    }else{
+      return num+'';
+    }
+  }
+
+  private toStringDate(fecha:Date): string{
+    return fecha.getFullYear()+'-'+this.aMes(fecha.getMonth())+'-'+this.ceroAIzq(fecha.getDate())+'T'+this.ceroAIzq(fecha.getHours())+':'+this.ceroAIzq(fecha.getMinutes())+':00';
+  }
   
   crearEvento(){
-      this.peteneceAGrupo('502606019798663').then(pertenece=>{
+      this.peteneceAGrupo('502606019798663').then(pertenece=>{ 
+          this.event.start = this.toStringDate(new Date(this.event.start));
+          this.event.end = this.toStringDate(new Date(this.event.end));
           this.af.database.list('/eventos').push(this.event); 
           this.displayCrear=false;                      
           });  
@@ -112,6 +145,10 @@ export class AppComponent {
   
   preCrearEvento(){
       this.event = new Evento();
+      this.event.usuario = this.usuario.uid;
+      this.event.allDay = false;
+      this.event.origen = 'ibg';
+      this.event.destino = 'bog';
       this.displayCrear = true;
   }
   
