@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
-import {ScheduleModule, DialogModule, ButtonModule, InputTextareaModule, DropdownModule, CalendarModule} from 'primeng/primeng';
+import {ScheduleModule, DialogModule, ButtonModule, InputTextareaModule, DropdownModule, CalendarModule, TabViewModule, DataListModule, PanelModule, DataTableModule,SharedModule,GrowlModule} from 'primeng/primeng';
 import { AngularFireModule, AuthProviders, AuthMethods  } from 'angularfire2';
 
 export const firebaseConfig = {
@@ -34,6 +34,12 @@ const myFirebaseAuthConfig = {
     InputTextareaModule,
     CalendarModule,
     DropdownModule,
+    TabViewModule,
+    DataListModule,
+    PanelModule,
+    DataTableModule,
+    SharedModule,
+    GrowlModule,
     AngularFireModule.initializeApp(firebaseConfig, myFirebaseAuthConfig )
   ],
   providers: [],

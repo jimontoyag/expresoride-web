@@ -1,12 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
-import { AngularFire, FirebaseListObservable, FirebaseAuthState } from 'angularfire2';
+import { AngularFire, FirebaseListObservable, FirebaseAuthState, FirebaseObjectObservable } from 'angularfire2';
 import { FacebookService, FacebookInitParams } from 'ng2-facebook-sdk';
 
 import {database} from 'firebase';
 
 import { Evento } from './modelo/evento';
-
 
 @Component({
   selector: 'app-root',
@@ -14,7 +13,7 @@ import { Evento } from './modelo/evento';
   styleUrls: ['./app.component.css'],
   providers: [FacebookService]  
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
   title = 'Schedule Rides';
   header: any;
   
@@ -23,6 +22,7 @@ export class AppComponent {
   displayCrear: boolean = false;
   cargando: boolean = true;
   lugares: any[];
+  msgs:any;
   
   private token:string;
   
@@ -33,17 +33,12 @@ export class AppComponent {
   
   usuario: firebase.UserInfo;    
   
-  eventos: FirebaseListObservable<Evento[]>;  
+  eventos: Evento[];
+  misEventos: Evento[];  
+
+  private eventosObs: FirebaseListObservable<any>; 
   
   constructor(af: AngularFire, fb: FacebookService) {
-    this.lugares = [];
-    this.lugares.push({label:'Bogota', value:'bgt'});
-    this.lugares.push({label:'Ibague', value:'ibg'});
-    this.header = {
-      left: 'prev,next today',
-      center: 'title',
-      right: 'month,agendaWeek,agendaDay'
-    };
     this.af = af;    
     this.fb = fb;
     let fbParams: FacebookInitParams = {
@@ -60,8 +55,19 @@ export class AppComponent {
         } else{
         this.estadoFuera();
       }  
-    });    
+    }); 
   }
+
+  ngOnInit() { 
+    this.lugares = [];
+    this.lugares.push({label:'Bogota', value:'bgt'});
+    this.lugares.push({label:'Ibague', value:'ibg'});
+    this.header = {
+      left: 'prev,next today',
+      center: 'title',
+      right: 'month,agendaWeek,agendaDay'
+    };     
+   }
   
   private estadoFuera(){
         this.usuario = null;
@@ -84,17 +90,35 @@ export class AppComponent {
             this.af.database.list('/usuarios').update(this.usuario.uid, { 
               nombre: this.usuario.displayName,
               fotoUrl:this.usuario.photoURL});
-            this.eventos = this.af.database.list('/eventos', {
+            this.eventosObs = this.af.database.list('/eventos', {
                                                                 query: {
                                                                   orderByChild: 'end',
-                                                                  startAt: this.hoy()
+                                                                  startAt: (new Date()).getTime()
                                                                 }
-                                                              }); 
+                                                              });
+            this.eventosObs.subscribe(eventos => {
+              this.eventos = eventos;
+              this.misEventos = new Array<Evento>();
+              for(let i= 0; i<eventos.length; i++){
+                this.af.database.object('/usuarios/'+this.eventos[i].usuario).subscribe(res => {
+                  this.eventos[i].fotoUrl = res.fotoUrl;
+                  this.eventos[i].nombreUsuario = res.nombre;
+                  this.eventos[i].id = eventos[i].$key;
+                  if(this.eventos[i].usuario == this.usuario.uid){
+                    this.misEventos.push(this.eventos[i]);
+                  }
+                });
+              }             
+            });
+
             this.dispSchedule = true;   
-            this.cargando = false;  
+            this.cargando = false;
           }else{
-            this.cargando = false;          
+            this.cargando = false;   
+            this.showMsg('error',':(','Para poder acceder, debes ser mienbro del grupo Expreso Ibagué Péguese la Rodadita');       
           }                         
+          }).catch(err=>{
+            this.showMsg('error',':(*****',err);
           });                        
                
       } 
@@ -133,14 +157,90 @@ export class AppComponent {
   private toStringDate(fecha:Date): string{
     return fecha.getFullYear()+'-'+this.aMes(fecha.getMonth())+'-'+this.ceroAIzq(fecha.getDate())+'T'+this.ceroAIzq(fecha.getHours())+':'+this.ceroAIzq(fecha.getMinutes())+':00';
   }
+
+  private diaSemana(dia:number):string{
+    switch (dia) {
+      case 0:
+        return 'Domingo';      
+      case 1:
+        return 'Lunes';
+      case 2:
+        return 'Martes';      
+      case 3:
+        return 'Miércoles';
+      case 4:
+        return 'Jueves';      
+      case 5:
+        return 'Viernes';
+      case 6:
+        return 'Sábado';
+    }
+  }
+
+  private showMsg(severity:string, summary:string, detail:string) {
+        this.msgs = [];
+        this.msgs.push({severity:severity, summary:summary, detail:detail});
+  }
+
+  private dateAUTC(fecha:Date):Date{
+    let fechaAux: Date = new Date();
+    fechaAux.setFullYear(fecha.getUTCFullYear());
+    fechaAux.setMonth(fecha.getUTCMonth());
+    fechaAux.setDate(fecha.getUTCDate());
+    fechaAux.setHours(fecha.getUTCHours());
+    fechaAux.setMinutes(fecha.getUTCMinutes());
+    return fechaAux;
+  }
+
+  fechaSalida(fechaStr:string):string{
+    let fecha: Date = new Date(fechaStr);
+    return this.diaSemana(fecha.getDay())+' '+fecha.getDate()+' - '+this.ceroAIzq(fecha.getHours())+':'+this.ceroAIzq(fecha.getMinutes())+':00';
+  }
   
   crearEvento(){
-      this.peteneceAGrupo('502606019798663').then(pertenece=>{ 
-          this.event.start = this.toStringDate(new Date(this.event.start));
-          this.event.end = this.toStringDate(new Date(this.event.end));
-          this.af.database.list('/eventos').push(this.event); 
-          this.displayCrear=false;                      
-          });  
+    if(this.event.start.getTime() >= this.event.end.getTime()){
+      this.showMsg('warn','Validación','La fecha de Salida debe ser antes de la fecha Máxima');
+    }else if(this.event.destino == this.event.origen){
+      this.showMsg('warn','Validación','El origen y el destino deben ser diferentes');
+    }else{
+
+      if(this.event.id){
+            this.af.database.list('/eventos').update(this.event.id, { 
+              descripcion:this.event.descripcion ,
+              destino:this.event.destino ,
+              end:this.event.end.getTime(),
+              origen:this.event.origen ,
+              start:this.event.start.getTime()
+             });
+            this.displayCrear=false; 
+          }else{
+            this.event.start = this.event.start.getTime();
+            this.event.end = this.event.end.getTime();
+            this.af.database.list('/eventos').push(this.event); 
+            this.displayCrear=false;  
+          }  
+
+    }
+  }
+
+  eliminarEvento(llave:string){
+    this.af.database.list('/eventos').remove(llave); 
+  }
+
+  editarEvento(evento:Evento){
+    this.event = new Evento();
+    this.event.start = new Date(evento.start);
+    this.event.end = new Date(evento.end);
+    this.event.id = evento.id;
+    this.event.allDay = evento.allDay;
+    this.event.descripcion = evento.descripcion;
+    this.event.destino = evento.destino;
+    this.event.origen = evento.origen;
+    this.event.usuario = evento.usuario;
+    this.event.cupos = evento.cupos;
+    this.event.fotoUrl = evento.fotoUrl;
+    this.event.nombreUsuario = evento.nombreUsuario;
+    this.displayCrear = true;
   }
   
   preCrearEvento(){
@@ -148,7 +248,9 @@ export class AppComponent {
       this.event.usuario = this.usuario.uid;
       this.event.allDay = false;
       this.event.origen = 'ibg';
-      this.event.destino = 'bog';
+      this.event.destino = 'bgt';
+      this.event.start = new Date();
+      this.event.end = new Date();
       this.displayCrear = true;
   }
   

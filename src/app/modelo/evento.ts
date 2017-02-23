@@ -1,7 +1,7 @@
 export class Evento {
-  id: number;
-  start: string;
-  end: string;
+  id: string;
+  start: any;
+  end: any;
   allDay: boolean;
   descripcion: string;
   destino: string;

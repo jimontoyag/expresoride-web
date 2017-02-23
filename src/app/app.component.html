@@ -1,50 +1,191 @@
+<p-growl [value]="msgs" [life]="10000"></p-growl>
+
 <div style="height:100%;width:100%;text-align:center;background-color:#20272a; position: absolute; z-index: 100;" *ngIf="!dispSchedule">
                 <div style="padding-top:15%">
                 <img src="./assets/sources/logo.png" style="height:300px;"/>
                 </div>
                 
                 <div style="margin-top:5%">
-                    <img src="./assets/sources/loading.gif" *ngIf="cargando"/>
+                    <img src="./assets/sources/loading.gif" *ngIf="cargando"/>                    
                     <button pButton type="button" label="Acceder" (click)="login()" *ngIf="!cargando"></button>
                 </div>
-            </div> 	
-<div class="container">
-	<button pButton type="button" label="Crear Evento" (click)="preCrearEvento()" *ngIf="dispSchedule"></button>
-	<p-schedule [events]="eventos | async" (onEventClick)="showDialog($event)" *ngIf="dispSchedule" [header]="header" [defaultView]="'agendaWeek'"></p-schedule>
-		<p-dialog  [(visible)]="display" [modal]="true" [responsive]="true"  [closeOnEscape]="true" >
-				<header [draggable]="true">
+            </div> 
+
+<button pButton type="button" label="Ofrecer cupos" (click)="preCrearEvento()" *ngIf="dispSchedule"></button>
+
+<p-tabView>
+    <p-tabPanel header="Cupos">
+       <p-dataList [value]="eventos" [paginator]="true" [rows]="5">
+		    <template let-eventod pTemplate="item">
+		        <div class="ui-grid ui-grid-responsive ui-fluid" style="font-size:16px;padding:20px;border-bottom:1px solid #D5D5D5;">
+		            <div class="ui-grid-row">
+		                <div class="ui-grid-col-3" style="text-align:center">
+		                	<div class="ui-grid ui-grid-responsive ui-fluid">
+		                		<div class="ui-grid-row">
+		                            <div class="ui-grid-col-12"><a href="https://facebook.com/{{eventod.usuario}}" target="_blank"><img style="border-radius: 50%;height: 100px;width: 100px;" src="{{eventod.fotoUrl}}"></a></div>
+		                        </div>
+		                        <div class="ui-grid-row">
+		                            <div class="ui-grid-col-12"><a style="font-style: oblique;font-weight: bold;color: rgb(246, 168, 40);" href="https://facebook.com/{{eventod.usuario}}" target="_blank">{{eventod.nombreUsuario}}</a></div>
+		                        </div>
+		                	</div>
+		                </div>
+		                <div class="ui-grid-col-9">
+		                    <div class="ui-grid ui-grid-responsive ui-fluid">
+		                        <div class="ui-grid-row">
+		                            <div class="ui-grid-col-12" style="font-style: italic;">{{eventod.descripcion}}</div>
+		                        </div>
+		                        <br/>
+		                        <div class="ui-grid-row">
+		                            <div class="ui-grid-col-2" style="font-weight: bold;">Origen:</div>
+		                            <div class="ui-grid-col-4">{{eventod.origen=='bgt'?'Bogotá':'Ibagué'}} <img src="./assets/sources/{{eventod.origen}}.png" style="height:20px;"/></div>
+		                            <div class="ui-grid-col-2" style="font-weight: bold;">Destino: </div>
+		                            <div class="ui-grid-col-4">{{eventod.destino=='bgt'?'Bogotá':'Ibagué'}} <img src="./assets/sources/{{eventod.destino}}.png" style="height:20px;"/></div>
+		                        </div>
+		                        <div class="ui-grid-row">
+		                            <div class="ui-grid-col-2" style="font-weight: bold;">Salida entre: </div>
+		                            <div class="ui-grid-col-4">{{fechaSalida(eventod.start)}}</div>
+		                            <div class="ui-grid-col-2" style="font-weight: bold;">Y: </div>
+		                            <div class="ui-grid-col-4">{{fechaSalida(eventod.end)}}</div>
+		                        </div>
+		                    </div>
+		                </div>
+		            </div>
+		        </div>
+		    </template>
+		</p-dataList>
+    </p-tabPanel>
+    <p-tabPanel header="Calendario">
+        <p-schedule [events]="eventos" (onEventClick)="showDialog($event)" *ngIf="dispSchedule" [header]="header" ></p-schedule>
+    </p-tabPanel>
+    <p-tabPanel header="Mis cupos">
+        <p-dataTable [value]="misEventos" [responsive]="true">
+		    <p-column field="descripcion" header="Descripción"></p-column>
+		    <p-column field="origen" header="Origen">
+		    	<template let-col let-eventedit="rowData" pTemplate="body">
+		            {{eventedit[col.field]=='bgt'?'Bogotá':'Ibagué'}} <img src="./assets/sources/{{eventedit[col.field]}}.png" style="height:20px;"/>
+		        </template>		    	
+		    </p-column>
+		    <p-column field="destino" header="Destino">
+		    	<template let-col let-eventedit="rowData" pTemplate="body">
+		            {{eventedit[col.field]=='bgt'?'Bogotá':'Ibagué'}} <img src="./assets/sources/{{eventedit[col.field]}}.png" style="height:20px;"/>
+		        </template>	
+		    </p-column>
+		    <p-column field="start" header="Inicio">
+		    	<template let-col let-eventedit="rowData" pTemplate="body">
+		            <span>{{fechaSalida(eventedit[col.field])}}</span>
+		        </template>
+		    </p-column>
+		    <p-column field="end" header="Fin">
+		    	<template let-col let-eventedit="rowData" pTemplate="body">
+		            <span>{{fechaSalida(eventedit[col.field])}}</span>
+		        </template>
+		    </p-column>
+		    <p-column [style]="{'text-align':'center','width':'100px'}" header="Acciones">
+		        <template let-eventedit="rowData" pTemplate="body">
+		            <button type="button" pButton (click)="editarEvento(eventedit)" icon="fa-pencil-square-o"></button>
+		            <button type="button" pButton (click)="eliminarEvento(eventedit.id)" icon="fa-trash-o"></button>
+		        </template>
+		    </p-column>
+		</p-dataTable> 
+	</p-tabPanel>
+</p-tabView>	
+	
+	
+		<p-dialog  [(visible)]="display" [modal]="true" [responsive]="true" *ngIf="display" >
+				<header>
+				<a href="https://facebook.com/{{event.usuario}}" target="_blank">
 					<img src="{{event.fotoUrl}}" class="profile-picture"/>
 					<p class="profile-name">{{event.nombreUsuario}}</p>
-				</header>   
-				<div class="event">
-	    			<p>{{event.descripcion}}</p>
-	   				<p>{{event.origen}}</p>
-	   				<p>{{event.destino}} </p>
-	    			<p>{{event.start}}</p> 
-	    			<p>{{event.end}}</p> 
-	    		</div>
+					</a>
+				</header>
+		        <div class="ui-grid ui-grid-responsive ui-fluid" style="font-size:16px;padding:20px;border-bottom:1px solid #D5D5D5;">
+		            
+		                        <div class="ui-grid-row">
+		                            <div class="ui-grid-col-12" style="font-style: italic;">{{event.descripcion}}</div>
+		                        </div>
+		                        <br/>
+		                        <div class="ui-grid-row">
+		                            <div class="ui-grid-col-4" style="font-weight: bold;">Origen:</div>
+		                            <div class="ui-grid-col-8">{{event.origen=='bgt'?'Bogotá':'Ibagué'}} <img src="./assets/sources/{{event.origen}}.png" style="height:20px;"/></div>                        
+		                        </div>
+		                        <br/>
+		                        <div class="ui-grid-row">
+		                        	<div class="ui-grid-col-4" style="font-weight: bold;">Destino: </div>
+		                            <div class="ui-grid-col-8">{{event.destino=='bgt'?'Bogotá':'Ibagué'}} <img src="./assets/sources/{{event.destino}}.png" style="height:20px;"/></div>
+		                        </div>
+		                        <br/>
+		                        <div class="ui-grid-row">
+		                            <div class="ui-grid-col-2" style="font-weight: bold;">Salida entre: </div>
+		                            <div class="ui-grid-col-4">{{fechaSalida(event.start)}}</div>
+		                            <div class="ui-grid-col-2" style="font-weight: bold;">Y: </div>
+		                            <div class="ui-grid-col-4">{{fechaSalida(event.end)}}</div>
+		                        </div>
+		        </div>
 		</p-dialog>
 		
-		<p-dialog class="crear_evento"  [(visible)]="displayCrear" [responsive]="true" [height]=550 [closeOnEscape]="true" [resizable]="true" [modal]="true" *ngIf="usuario && displayCrear">
-		       <header [draggable]="true">
+		<p-dialog [(visible)]="displayCrear" [modal]="true" *ngIf="displayCrear" [responsive]="true">
+		       <header>
 					<img src="{{usuario.photoURL}}" class="profile-picture"/>
 					<p class="profile-name">{{usuario.displayName}}</p>
 				</header>  
-			
-					<div class="ui-grid-row">
-        				<div class="ui-g-6 form"><p-dropdown [options]="lugares" [(ngModel)]="event.origen" [autoWidth]="false"></p-dropdown></div>
-				    	<div class="ui-g-6 form"><p-dropdown [options]="lugares" [(ngModel)]="event.destino" [autoWidth]="false"></p-dropdown></div>
-       			 	</div>
-					<div class="ui-grid-row">
-				    	<div class="ui-g-6 form"><p-calendar [(ngModel)]="event.start" [showTime]="true"></p-calendar></div>
-				    <div class="ui-g-6 form"><p-calendar [(ngModel)]="event.end" [showTime]="true"></p-calendar></div>
-       				 </div>
-					<div class="ui-grid-row">
-				    	<div class="ui-g-12 form"><textarea pInputTextarea [(ngModel)]="event.descripcion"></textarea></div>
-						<button pButton type="button" label="Crear" (click)="crearEvento()" ></button>
-       			 	</div>
-				    
-				    
-				  			
+				<div class="ui-grid ui-grid-responsive ui-fluid" style="overflow-y: scroll;height:470px;font-size:16px;padding:20px;border-bottom:1px solid #D5D5D5;">
+						<div class="ui-grid-row">
+			                <div class="ui-grid-col-4" style="font-weight: bold;">Origen:</div>
+			                <div class="ui-grid-col-6">
+				                <p-dropdown [options]="lugares" [(ngModel)]="event.origen" [autoWidth]="false" >
+		        					<template let-ubi pTemplate="item">
+								        <div class="ui-helper-clearfix" style="position: relative;height: 25px;">
+								            <img src="./assets/sources/{{ubi.value}}.png" style="width:24px;position:absolute;top:1px;left:5px"/>
+								            <div style="font-size:14px;float:right;margin-top:4px">{{ubi.label}}</div>
+								        </div>
+								    </template>
+		        				</p-dropdown>
+			                </div>			                
+			            </div>
+			            <div class="ui-grid-row">
+			            	<div class="ui-grid-col-4" style="font-weight: bold;">Destino:</div>
+			                <div class="ui-grid-col-6">
+				                <p-dropdown [options]="lugares" [(ngModel)]="event.destino" [autoWidth]="false" >
+		        					<template let-ubi pTemplate="item">
+								        <div class="ui-helper-clearfix" style="position: relative;height: 25px;">
+								            <img src="./assets/sources/{{ubi.value}}.png" style="width:24px;position:absolute;top:1px;left:5px"/>
+								            <div style="font-size:14px;float:right;margin-top:4px">{{ubi.label}}</div>
+								        </div>
+								    </template>
+		        				</p-dropdown>
+			                </div>
+			            </div>
+			            <div class="ui-grid-row">
+			                <div class="ui-grid-col-4" style="font-weight: bold;">Hora salida:</div>
+			                <div class="ui-grid-col-8">
+				                <p-calendar [(ngModel)]="event.start" [showTime]="true" [inline]="true"></p-calendar>
+			                </div>
+			                <div class="ui-grid-col-2"></div>
+			            </div>
+			            <br/>
+			            <div class="ui-grid-row">			            
+			                <div class="ui-grid-col-4" style="font-weight: bold;">máximo:</div>
+			                <div class="ui-grid-col-8">
+				                <p-calendar [(ngModel)]="event.end" [showTime]="true" [inline]="true"></p-calendar>
+			                </div>
+			                <div class="ui-grid-col-2"></div>
+			            </div>
+	       			 	<div class="ui-grid-row">
+	       			 		<div class="ui-grid-col-12" style="font-weight: bold;">
+	       			 			Descripción:
+	       			 		</div>							       			 
+						</div>
+						<div class="ui-grid-row">
+	       			 		<div class="ui-grid-col-12">
+	       			 			<textarea pInputTextarea [(ngModel)]="event.descripcion" style="height: 80px;"></textarea>
+	       			 		</div>							       			 
+						</div>
+	       			 	<br/>
+	       			 	<div class="ui-grid-row">
+	       			 		<div class="ui-grid-col-12">
+	       			 			<button pButton type="button" label="Publicar cupo" (click)="crearEvento()" ></button>
+	       			 		</div>							       			 
+						</div>
+						<br/>
+				</div>	  			
 		</p-dialog>
-</div>
