@@ -23,6 +23,12 @@ export class AppComponent implements OnInit{
   cargando: boolean = true;
   lugares: any[];
   msgs:any;
+
+  private sinFiltro:Evento[];
+  filtroEnd: Date;
+  filtroStart: Date;
+  filtroOrigen: string;
+  filtroDestino:string;
   
   private token:string;
   
@@ -59,7 +65,9 @@ export class AppComponent implements OnInit{
   }
 
   ngOnInit() { 
+    this.limpiaFiltro();
     this.lugares = [];
+    this.lugares.push({label:'', value:undefined});
     this.lugares.push({label:'Bogota', value:'bgt'});
     this.lugares.push({label:'Ibague', value:'ibg'});
     this.header = {
@@ -68,6 +76,28 @@ export class AppComponent implements OnInit{
       right: 'month,agendaWeek,agendaDay'
     };     
    }
+
+  private filtro(evento: Evento):boolean{
+    let muestra = true;
+    
+    if(this.filtroStart && this.filtroStart > evento.end){
+      muestra = false;
+    }
+
+    if(this.filtroEnd && this.filtroEnd < evento.start){
+      muestra = false;
+    }
+
+    if(this.filtroOrigen && this.filtroOrigen != evento.origen){
+      muestra = false;
+    }
+
+    if(this.filtroDestino && this.filtroDestino != evento.destino){
+      muestra = false;
+    }
+
+    return muestra;
+  }
   
   private estadoFuera(){
         this.usuario = null;
@@ -108,7 +138,8 @@ export class AppComponent implements OnInit{
                     this.misEventos.push(this.eventos[i]);
                   }
                 });
-              }             
+              }  
+              this.sinFiltro = this.eventos;           
             });
 
             this.dispSchedule = true;   
@@ -192,6 +223,21 @@ export class AppComponent implements OnInit{
     return fechaAux;
   }
 
+  filtrar(){
+    this.eventos = this.sinFiltro.filter(evento => this.filtro(evento));
+    if(this.eventos.length === 0){
+      this.showMsg('warn','','No se encontraron cupos :(');
+    }
+  }
+
+  limpiaFiltro(){
+    this.filtroStart = undefined;
+    this.filtroEnd = undefined;
+    this.filtroOrigen = undefined;
+    this.filtroDestino = undefined;
+    this.eventos = this.sinFiltro;
+  }
+
   fechaSalida(fechaStr:string):string{
     let fecha: Date = new Date(fechaStr);
     return this.diaSemana(fecha.getDay())+' '+fecha.getDate()+' - '+this.ceroAIzq(fecha.getHours())+':'+this.ceroAIzq(fecha.getMinutes())+':00';
@@ -203,10 +249,12 @@ export class AppComponent implements OnInit{
     }else if(this.event.destino == this.event.origen){
       this.showMsg('warn','Validación','El origen y el destino deben ser diferentes');
     }else{
-
+      if(!this.event.descripcion){
+        this.event.descripcion = '';
+      }
       if(this.event.id){
             this.af.database.list('/eventos').update(this.event.id, { 
-              descripcion:this.event.descripcion+' ' ,
+              descripcion:this.event.descripcion,
               destino:this.event.destino ,
               end:this.event.end.getTime(),
               origen:this.event.origen ,
@@ -216,7 +264,7 @@ export class AppComponent implements OnInit{
           }else{
             this.event.start = this.event.start.getTime();
             this.event.end = this.event.end.getTime();
-            this.event.descripcion = this.event.descripcion + ' ';
+            this.event.descripcion = this.event.descripcion;
             this.af.database.list('/eventos').push(this.event); 
             this.displayCrear=false;  
           }  
