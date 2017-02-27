@@ -206,7 +206,7 @@ export class AppComponent implements OnInit{
 
       if(this.event.id){
             this.af.database.list('/eventos').update(this.event.id, { 
-              descripcion:this.event.descripcion ,
+              descripcion:this.event.descripcion+' ' ,
               destino:this.event.destino ,
               end:this.event.end.getTime(),
               origen:this.event.origen ,
@@ -216,6 +216,7 @@ export class AppComponent implements OnInit{
           }else{
             this.event.start = this.event.start.getTime();
             this.event.end = this.event.end.getTime();
+            this.event.descripcion = this.event.descripcion + ' ';
             this.af.database.list('/eventos').push(this.event); 
             this.displayCrear=false;  
           }  
