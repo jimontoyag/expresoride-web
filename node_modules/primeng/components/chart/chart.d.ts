@@ -17,6 +17,7 @@ export declare class UIChart implements AfterViewInit, OnDestroy {
     getCanvas(): any;
     getBase64Image(): any;
     refresh(): void;
+    reinit(): void;
     ngOnDestroy(): void;
 }
 export declare class ChartModule {

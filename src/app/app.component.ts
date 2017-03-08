@@ -23,6 +23,7 @@ export class AppComponent implements OnInit{
   cargando: boolean = true;
   lugares: any[];
   msgs:any;
+  es:any; 
 
   private sinFiltro:Evento[];
   filtroEnd: Date;
@@ -66,6 +67,7 @@ export class AppComponent implements OnInit{
 
   ngOnInit() { 
     this.limpiaFiltro();
+    this.localeCalendar(); 
     this.lugares = [];
     this.lugares.push({label:'', value:undefined});
     this.lugares.push({label:'Bogota', value:'bgt'});
@@ -76,6 +78,17 @@ export class AppComponent implements OnInit{
       right: 'month,agendaWeek,agendaDay'
     };     
    }
+
+   private localeCalendar(){ 
+    this.es = { 
+            firstDayOfWeek: 0, 
+            dayNames: ["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"], 
+            dayNamesShort: ["Dom", "Lun", "Mar", "Mier", "Jue", "Vier", "Sab"], 
+            dayNamesMin: ["Do","Lu","Ma","Mi","Ju","Vi","Sa"], 
+            monthNames: [ "Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre" ], 
+            monthNamesShort: [ "Ene", "Feb", "Mar", "Abr", "May", "Jun","Jul", "Ago", "Sep", "Oct", "Nov", "Dic" ] 
+        }; 
+  } 
 
   private filtro(evento: Evento):boolean{
     let muestra = true;
@@ -244,7 +257,7 @@ export class AppComponent implements OnInit{
   }
   
   crearEvento(){
-    if(this.event.start.getTime() >= this.event.end.getTime()){
+    if(this.event.start.getTime() > this.event.end.getTime()){
       this.showMsg('warn','Validación','La fecha de Salida debe ser antes de la fecha Máxima');
     }else if(this.event.destino == this.event.origen){
       this.showMsg('warn','Validación','El origen y el destino deben ser diferentes');
@@ -293,15 +306,28 @@ export class AppComponent implements OnInit{
   }
   
   preCrearEvento(){
+      let ahora = new Date(); 
+      ahora.setHours(ahora.getHours()+1); 
+      ahora.setMinutes(0); 
       this.event = new Evento();
       this.event.usuario = this.usuario.uid;
       this.event.allDay = false;
       this.event.origen = 'ibg';
       this.event.destino = 'bgt';
-      this.event.start = new Date();
-      this.event.end = new Date();
+      this.event.start = new Date(ahora); 
+      ahora.setHours(ahora.getHours()+1); 
+      this.event.end = ahora; 
       this.displayCrear = true;
   }
+
+  cambiaFechaFin(){ 
+    if(!this.event.id){
+      let aux = new Date(this.event.start); 
+      aux.setHours(aux.getHours()+1); 
+      this.event.end = aux; 
+    }
+    
+  } 
   
   showDialog(event) {
     this.event = new Evento();

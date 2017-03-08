@@ -38,11 +38,11 @@
 			</div>
 			<div class="ui-grid-col-3">
 				<div class="ui-grid-row">Entre </div>	
-				<p-calendar [(ngModel)]="filtroStart" [monthNavigator]="true" [showTime]="true"></p-calendar>
+				<p-calendar [(ngModel)]="filtroStart" [locale]="es" [monthNavigator]="true" [showTime]="true"></p-calendar> 
 			</div>
 			<div class="ui-grid-col-3">
 				<div class="ui-grid-row">Y </div>	
-				<p-calendar [(ngModel)]="filtroEnd" [monthNavigator]="true" [showTime]="true"></p-calendar> 
+				<p-calendar [(ngModel)]="filtroEnd" [locale]="es" [monthNavigator]="true" [showTime]="true"></p-calendar>   
 			</div>
 			<div class="ui-grid-col-2">
 				<button pButton type="button" icon="fa-search" label="Buscar" (click)="filtrar()"></button>  
@@ -99,7 +99,7 @@
 		</p-dataList>
     </p-tabPanel>
     <p-tabPanel header="Calendario">
-        <p-schedule [events]="eventos" (onEventClick)="showDialog($event)" *ngIf="dispSchedule" [header]="header" ></p-schedule>
+        <p-schedule [events]="eventos" (onEventClick)="showDialog($event)" *ngIf="dispSchedule" [header]="header" [timezone]="'local'" [locale]="'es'"></p-schedule> 
     </p-tabPanel>
     <p-tabPanel header="Mis cupos">
         <p-dataTable [value]="misEventos" [responsive]="true">
@@ -202,7 +202,7 @@
 			            <div class="ui-grid-row">
 			                <div class="ui-grid-col-4" style="font-weight: bold;">Hora salida:</div>
 			                <div class="ui-grid-col-8">
-				                <p-calendar [(ngModel)]="event.start" [showTime]="true" [inline]="true" [monthNavigator]="true"></p-calendar>
+				                <p-calendar [(ngModel)]="event.start" [locale]="es" [showTime]="true" [inline]="true" [monthNavigator]="true" (onSelect)="cambiaFechaFin()"></p-calendar> 
 			                </div>
 			                <div class="ui-grid-col-2"></div>
 			            </div>
@@ -210,7 +210,7 @@
 			            <div class="ui-grid-row">			            
 			                <div class="ui-grid-col-4" style="font-weight: bold;">máximo:</div>
 			                <div class="ui-grid-col-8">
-				                <p-calendar [(ngModel)]="event.end" [showTime]="true" [inline]="true" [monthNavigator]="true"></p-calendar>
+				                <p-calendar [(ngModel)]="event.end" [locale]="es" [showTime]="true" [inline]="true" [monthNavigator]="true"></p-calendar> 
 			                </div>
 			                <div class="ui-grid-col-2"></div>
 			            </div>
