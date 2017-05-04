@@ -6,6 +6,12 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import {ScheduleModule, DialogModule, ButtonModule, InputTextareaModule, DropdownModule, CalendarModule, TabViewModule, DataListModule, PanelModule, DataTableModule,SharedModule,GrowlModule,ToolbarModule} from 'primeng/primeng';
 import { AngularFireModule, AuthProviders, AuthMethods  } from 'angularfire2';
+import { PilotosComponent } from './pilotos/pilotos.component';
+import { PasajerosComponent } from './pasajeros/pasajeros.component';
+import { SesionService } from './servicios/sesion.service';
+import { DatosService } from './servicios/datos.service';
+
+import { AppRoutingModule }     from './app-routing/app-routing.module';
 
 export const firebaseConfig = {
   apiKey: 'AIzaSyBK0qd_4ojUSmXNqlTnXedoKigJkxPsPlo',
@@ -22,9 +28,12 @@ const myFirebaseAuthConfig = {
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    PasajerosComponent,
+    PilotosComponent
   ],
   imports: [
+    AppRoutingModule,
     BrowserModule,
     FormsModule,
     HttpModule,
@@ -43,7 +52,7 @@ const myFirebaseAuthConfig = {
     ToolbarModule,
     AngularFireModule.initializeApp(firebaseConfig, myFirebaseAuthConfig )
   ],
-  providers: [],
+  providers: [SesionService, DatosService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

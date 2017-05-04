@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { Router } from '@angular/router';
+
 import { AngularFire, FirebaseListObservable, FirebaseAuthState, FirebaseObjectObservable } from 'angularfire2';
 import { FacebookService, FacebookInitParams } from 'ng2-facebook-sdk';
 
@@ -45,7 +47,7 @@ export class AppComponent implements OnInit{
 
   private eventosObs: FirebaseListObservable<any>; 
   
-  constructor(af: AngularFire, fb: FacebookService) {
+  constructor(af: AngularFire, fb: FacebookService,private router: Router) {
     this.af = af;    
     this.fb = fb;
     let fbParams: FacebookInitParams = {
@@ -341,6 +343,18 @@ export class AppComponent implements OnInit{
   
    login() {         
        this.af.auth.login();           
+  }
+  
+  navegaPasajero(): void{
+    this.router.navigate(['/pasajero']);
+  }
+  
+  navegaPiloto(): void{
+    this.router.navigate(['/piloto']);
+  }
+  
+  navegaHome(): void {
+    this.router.navigate(['/']);
   }
   
 }
