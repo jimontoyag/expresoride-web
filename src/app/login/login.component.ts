@@ -12,7 +12,7 @@ import { FacebookService, FacebookInitParams } from 'ng2-facebook-sdk';
 export class LoginComponent implements OnInit {
 
 
-  cargando : boolean = false;  
+  cargando : boolean = true;  
   msgs:any;
   
   private token:string;
@@ -40,6 +40,7 @@ export class LoginComponent implements OnInit {
 
   private estadoFuera(){
         this.ags.logout;
+        this.cargando = false;
   }
   
   private cambiaEstadoSesion(auth:FirebaseAuthState, uid:string){
