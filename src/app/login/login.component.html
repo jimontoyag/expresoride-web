@@ -1,0 +1,11 @@
+<p-growl [value]="msgs" [life]="10000"></p-growl>
+<div style="height:100%;width:100%;text-align:center;background-color:#20272a; position: absolute; z-index: 100;">
+                <div style="padding-top:15%">
+                <img src="./assets/sources/logo.png" style="height:300px;"/>
+                </div>
+                
+                <div style="margin-top:5%">
+                    <img src="./assets/sources/loading.gif" *ngIf="cargando"/>                    
+                    <button pButton type="button" label="Acceder" (click)="login()" *ngIf="!cargando"></button>
+                </div>
+            </div> 

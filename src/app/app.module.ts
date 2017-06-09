@@ -4,14 +4,41 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
-import {ScheduleModule, DialogModule, ButtonModule, InputTextareaModule, DropdownModule, CalendarModule, TabViewModule, DataListModule, PanelModule, DataTableModule,SharedModule,GrowlModule,ToolbarModule} from 'primeng/primeng';
+import { DialogModule, ButtonModule, InputTextareaModule, DropdownModule, CalendarModule, TabViewModule, DataListModule, PanelModule, DataTableModule,SharedModule,GrowlModule,ToolbarModule} from 'primeng/primeng';
 import { AngularFireModule, AuthProviders, AuthMethods  } from 'angularfire2';
-import { PilotosComponent } from './pilotos/pilotos.component';
-import { PasajerosComponent } from './pasajeros/pasajeros.component';
-import { SesionService } from './servicios/sesion.service';
 import { DatosService } from './servicios/datos.service';
 
-import { AppRoutingModule }     from './app-routing/app-routing.module';
+import { LoginComponent } from './login/login.component';
+import { InicioComponent } from './inicio/inicio.component';
+import { RouterModule, Routes } from '@angular/router';
+
+import { PasajerosComponent } from './pasajeros/pasajeros.component';
+import { PilotosComponent } from './pilotos/pilotos.component';
+import { AuthGuard } from './servicios/auth-guard.service';
+import { AuthService } from './servicios/auth.service';
+import { FacebookService } from 'ng2-facebook-sdk';
+
+const routes: Routes = [
+  { 
+    path: 'pasajero', 
+    component: PasajerosComponent,
+    canActivate: [AuthGuard]  },
+  { 
+    path: 'piloto', 
+    component: PilotosComponent,
+    canActivate: [AuthGuard] },
+  { 
+    path: 'inicio', 
+    component: InicioComponent,
+    canActivate: [AuthGuard] },
+  { 
+    path: 'login', 
+    component: LoginComponent},
+  { 
+    path: '', 
+    redirectTo:'login',
+    pathMatch:'full'}
+];
 
 export const firebaseConfig = {
   apiKey: 'AIzaSyBK0qd_4ojUSmXNqlTnXedoKigJkxPsPlo',
@@ -30,14 +57,15 @@ const myFirebaseAuthConfig = {
   declarations: [
     AppComponent,
     PasajerosComponent,
-    PilotosComponent
+    PilotosComponent,
+    LoginComponent,
+    InicioComponent
   ],
   imports: [
-    AppRoutingModule,
+     RouterModule.forRoot(routes) ,
     BrowserModule,
     FormsModule,
     HttpModule,
-    ScheduleModule,
     DialogModule,
     ButtonModule,
     InputTextareaModule,
@@ -52,7 +80,8 @@ const myFirebaseAuthConfig = {
     ToolbarModule,
     AngularFireModule.initializeApp(firebaseConfig, myFirebaseAuthConfig )
   ],
-  providers: [SesionService, DatosService],
+  exports:[RouterModule],
+  providers: [ AuthService, FacebookService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
