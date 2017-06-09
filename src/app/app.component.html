@@ -1,23 +1,16 @@
-   <div *ngIf="dispSchedule">
-    <button pButton type="button" label="Piloto" (click)="navegaPiloto()"></button>
-    <button pButton type="button" label="Pasajero" (click)="navegaPasajero()"></button>
-    <button pButton type="button" label="Home" (click)="navegaHome()"></button>
-    <router-outlet></router-outlet>
-   </div>
-    
-    
-    <p-growl [value]="msgs" [life]="10000"></p-growl>
+<!--     <p-growl [value]="msgs" [life]="10000"></p-growl>
 
-<div style="height:100%;width:100%;text-align:center;background-color:#20272a; position: absolute; z-index: 100;" *ngIf="!dispSchedule">
+<div style="height:100%;width:100%;text-align:center;background-color:#20272a; position: absolute; z-index: 100;" >
                 <div style="padding-top:15%">
                 <img src="./assets/sources/logo.png" style="height:300px;"/>
                 </div>
                 
                 <div style="margin-top:5%">
-                    <img src="./assets/sources/loading.gif" *ngIf="cargando"/>                    
-                    <button pButton type="button" label="Acceder" (click)="login()" *ngIf="!cargando"></button>
+                    <img src="./assets/sources/loading.gif" />                    
                 </div>
-            </div> 
+            </div>  -->
+            
+            <router-outlet></router-outlet>
 
 
 <!-- <p-growl [value]="msgs" [life]="10000"></p-growl>
