@@ -17,6 +17,7 @@ import { PilotosComponent } from './pilotos/pilotos.component';
 import { AuthGuard } from './servicios/auth-guard.service';
 import { AuthService } from './servicios/auth.service';
 import { FacebookService } from 'ng2-facebook-sdk';
+import { DatePipe } from '@angular/common';
 
 const routes: Routes = [
   {
@@ -83,7 +84,7 @@ const myFirebaseAuthConfig = {
     AngularFireModule.initializeApp(firebaseConfig, myFirebaseAuthConfig )
   ],
   exports:[RouterModule],
-  providers: [ AuthService, FacebookService, AuthGuard, LugaresService],
+  providers: [ AuthService, FacebookService, AuthGuard, LugaresService, DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
