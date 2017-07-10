@@ -1,7 +1,5 @@
-<div class="section-piloto">
-
-</div>
-<div class="ui-g ui-fluid">
+<div>
+<div class="ui-g ui-fluid" style="background-color:#f6a828">
   <div class="ui-g-6 ui-lg-6 ui-md-6 ui-sm-12">
     <p-dropdown [options]="lugares()" [(ngModel)]="origen" [autoWidth]="false" >
                 <template let-ubi pTemplate="item">
@@ -27,40 +25,74 @@
   </div>
 
 <button pButton type="button" label="Buscar" (click)="busquedaCupo()" ></button>
-
-<p-dataList [value]="cupos | async" [paginator]="true" [rows]="5">
-  <template let-eventod pTemplate="item">
-      <div class="ui-grid ui-grid-responsive ui-fluid" style="font-size:16px;padding:20px;border-bottom:1px solid #D5D5D5;">
-          <div class="ui-grid-row">
-              <div class="ui-grid-col-3" style="text-align:center">
-                <div class="ui-grid ui-grid-responsive ui-fluid">
-                  <div class="ui-grid-row">
-                          <div class="ui-grid-col-12"><a href="https://facebook.com/{{eventod.piloto}}" target="_blank"><img style="border-radius: 50%;height: 100px;width: 100px;" src="{{eventod.fotoUrl}}"></a></div>
-                      </div>
-                      <div class="ui-grid-row">
-                          <div class="ui-grid-col-12"><a style="font-style: oblique;font-weight: bold;color: rgb(246, 168, 40);" href="https://facebook.com/{{eventod.piloto}}" target="_blank">{{eventod.nombrePiloto}}</a></div>
-                      </div>
-                </div>
-              </div>
-              <div class="ui-grid-col-9">
+</div>
+</div>
+<section class="section-pasajero">
+  <p-dataList [value]="cupos | async" [paginator]="false"   [rows]="5" >
+    <template let-eventod pTemplate="item">
+        <div class="ui-grid ui-grid-responsive ui-fluid" style="background-color:none;">
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-3" style="text-align:center">
                   <div class="ui-grid ui-grid-responsive ui-fluid">
-                      <div class="ui-grid-row">
-                          <div class="ui-grid-col-12" style="font-style: italic;">{{eventod.descripcion}}</div>
-                      </div>
-                      <br/>
+                    <div class="ui-grid-row">
+                            <div class="ui-grid-col-12"><a href="https://facebook.com/{{eventod.piloto}}" target="_blank"><img style="border-radius: 50%;height: 100px;width: 100px;" src="{{eventod.fotoUrl}}"></a></div>
+                        </div>
+                        <div class="ui-grid-row">
+                            <div class="ui-grid-col-12"><a style="font-style: oblique;font-weight: bold;color: rgb(246, 168, 40);" href="https://facebook.com/{{eventod.piloto}}" target="_blank">{{eventod.nombrePiloto}}</a></div>
+                        </div>
                   </div>
-              </div>
-          </div>
-      </div>
-  </template>
-</p-dataList>
-</div>
+                </div>
+                <div class="ui-grid-col-9">
+                    <div class="ui-grid ui-grid-responsive ui-fluid">
+                        <div class="ui-grid-row">
+                            <div class="ui-grid-col-12" style="font-style: italic;">{{eventod.descripcion}}</div>
+                        </div>
+                        <br/>
+                        <div class="ui-grid-row">
+                              <div class="ui-grid-col-2" style="font-weight: bold;"><h3>Hora:</h3></div>
 
-<div class="ui-g-12 ui-lg-12 ui-md-12 ui-sm-12" style="background-color:#d5d5d5">
-  <h2>
-    {{origen?'Viajo de '+getServicioNombre(origen):'Selecciona origen, destino, fecha y hora de salida'}} {{destino&&origen?' a '+getServicioNombre(destino):''}} {{destino&&origen&&saleFecha?' el '+(saleFecha | date:'EEEE , d MMMM'):''}}  {{destino&&origen&&hora?'a las '+hora+':00':''}}
-  </h2>
-  <h3>
-    {{descripcion?descripcion:''}}
-  </h3>
-</div>
+                              <div class="ui-grid-col-4">{{eventod.hora}} <img src="{{getServicioUrl(eventod.origen)}}" style="height:20px;"/></div>
+                          </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+  </p-dataList>
+
+
+
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+  </section>

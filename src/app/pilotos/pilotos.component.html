@@ -38,17 +38,48 @@
             <textarea pInputTextarea [(ngModel)]="descripcion" style="height: 80px;" placeholder="Escribe acá información útil para quien busca cupo. Número de contacto, tipo de auto, etc.. Se creativo para que el viaje te salga bien barato."></textarea>
           </div>
           <div class="ui-g-12 ui-lg-12 ui-md-12 ui-sm-12" style="background-color:#d5d5d5">
-            <h2>
-              {{origen?'Viajo de '+getServicioNombre(origen):'Selecciona origen, destino, fecha y hora de salida'}} {{destino&&origen?' a '+getServicioNombre(destino):''}} {{destino&&origen&&saleFecha?' el '+(saleFecha | date:'EEEE , d MMMM'):''}}  {{destino&&origen&&hora?'a las '+hora+':00':''}}
-            </h2>
-            <h3>
-              {{descripcion?descripcion:''}}
-            </h3>
+            <section class="section-piloto">
+
+        <div class="ui-g-12 ui-lg-12 ui-md-12 ui-sm-12">
+          <h2>
+            {{origen?'Viajo de '+getServicioNombre(origen):'Selecciona origen, destino, fecha y hora de salida'}} {{destino&&origen?' a '+getServicioNombre(destino):''}} {{destino&&origen&&saleFecha?' el '+(saleFecha | date:'EEEE , d MMMM'):''}}  {{destino&&origen&&hora?'a las '+hora+':00':''}}
+          </h2>
+          <h3>
+            {{descripcion?descripcion:''}}
+          </h3>
+        </div>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+      </section>
           </div>
           <div class="ui-g-12 ui-lg-12 ui-md-12 ui-sm-12">
             <button pButton type="button" label="Publicar" (click)="publicarCupo()" *ngIf="destino&&origen&&saleFecha"></button>
           </div>
         </div>
+      
 <div class="ui-g-12 ui-lg-12 ui-md-12 ui-sm-12" *ngIf="miscupos">
           <p-dataList [value]="misEventos | async" [paginator]="true" [rows]="5">
   		    <template let-eventod pTemplate="item">
@@ -74,4 +105,4 @@
   </p-dataList>
 </div>
 
-        </div>
+</div>
