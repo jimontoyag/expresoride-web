@@ -3,6 +3,8 @@ import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/databa
 import { LugaresService } from '../servicios/lugares.service';
 import { AuthService } from '../servicios/auth.service';
 import { DatePipe } from '@angular/common';
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-pasajeros',
   templateUrl: './pasajeros.component.html',
@@ -16,7 +18,8 @@ origen: string;
 destino: string;
 
 
-  constructor(private database : AngularFireDatabase, private lugaresService: LugaresService, private authService: AuthService, private datepipe: DatePipe ) { }
+  constructor(private database : AngularFireDatabase, private lugaresService: LugaresService, private authService: AuthService, private datepipe: DatePipe
+  , private router: Router ) { }
 
   ngOnInit() {
   }
@@ -37,6 +40,10 @@ destino: string;
   }
   getServicioUrl(codigo:string):string{
     return this.lugaresService.getServicioUrl(codigo);
+  }
+
+  irInicio(){
+    this.router.navigate(['/inicio']);
   }
 
 }
