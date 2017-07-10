@@ -13,7 +13,7 @@ export class LugaresService {
       this.lugares = [];
       this.valorNombre = [];
       this.valorUrl = [];
-      this.lugares.push({label:'',value:null});
+      
       lugares.forEach(lugar => {
         this.lugares.push({label:lugar.nombre, value: lugar.$key, urlBandera: lugar.urlBandera});
         this.valorNombre[lugar.$key] = lugar.nombre;
