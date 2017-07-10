@@ -454,6 +454,7 @@ header {
     background-size: cover;
     color: #fff;
     background-attachment: fixed;
+    height: 100%;
 }
 
 
@@ -463,6 +464,7 @@ header {
     background-size: cover;
     color: #fff;
     background-attachment: fixed;
+    height: 100%;
 }
 
 .section-ibg {
