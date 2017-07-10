@@ -206,6 +206,12 @@ header {
     background-attachment: fixed;
 }
 
+.ui-widget-content .change {
+    border: none;
+    background: rgba(56, 36, 36, 0);
+    color: #333333;
+}
+
 .hero-text-box {
     position: absolute;
     width: 1140px;
@@ -443,8 +449,8 @@ header {
 }
 
 .section-pasajero {
-    background-image: -webkit-linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url(assets/resources/css/backg/bgt.jpg);
-    background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url(assets/resources/css/backg/bgt.jpg);
+    background-image: -webkit-linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.5)), url(assets/resources/css/backg/pasajbckg.jpg);
+    background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.5)), url(assets/resources/css/backg/pasajbckg.jpg);
     background-size: cover;
     color: #fff;
     background-attachment: fixed;
@@ -452,6 +458,14 @@ header {
 
 
 .section-piloto {
+    background-image: -webkit-linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.5)), url(assets/resources/css/backg/roads.jpg);
+    background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.5)), url(assets/resources/css/backg/roads.jpg);
+    background-size: cover;
+    color: #fff;
+    background-attachment: fixed;
+}
+
+.section-ibg {
     background-image: -webkit-linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url(assets/resources/css/backg/ibg.jpg);
     background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url(assets/resources/css/backg/ibg.jpg);
     background-size: cover;

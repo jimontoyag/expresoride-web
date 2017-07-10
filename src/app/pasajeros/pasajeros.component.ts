@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 import { LugaresService } from '../servicios/lugares.service';
 import { AuthService } from '../servicios/auth.service';
+import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-pasajeros',
   templateUrl: './pasajeros.component.html',
@@ -15,7 +16,7 @@ origen: string;
 destino: string;
 
 
-  constructor(private database : AngularFireDatabase, private lugaresService: LugaresService, private authService: AuthService ) { }
+  constructor(private database : AngularFireDatabase, private lugaresService: LugaresService, private authService: AuthService, private datepipe: DatePipe ) { }
 
   ngOnInit() {
   }
@@ -24,10 +25,18 @@ destino: string;
   }
 
   busquedaCupo(){
-  this.cupos = this.database.list('/cupos/'+'/'+this.origen+'/'+this.destino+'/'+this.fecha.getFullYear()+'/'+this.fecha.getMonth()+'/'+this.fecha.getDate());
+  this.cupos = this.database.list('/cupos/'+'/'+this.origen+'/'+this.destino+'/'+this.datepipe.transform(this.fecha, 'y/MM/dd'));
+
+
+  // this.fecha.getFullYear()+'/'+this.fecha.getMonth()+'/'+this.fecha.getDate());
   }
   getServicioNombre(codigo:string):string{
+  console.log(codigo);
+  console.log(this.lugaresService.getServicioNombre(codigo));
     return this.lugaresService.getServicioNombre(codigo);
+  }
+  getServicioUrl(codigo:string):string{
+    return this.lugaresService.getServicioUrl(codigo);
   }
 
 }
