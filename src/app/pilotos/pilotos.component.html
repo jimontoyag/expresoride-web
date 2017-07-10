@@ -1,5 +1,10 @@
-<div class="">
+<p-toolbar>
+  <div class="ui-toolbar-group-right">
+    <button pButton type="button" label="Mis Cupos" (click)="publicarCupo()"></button>
+    <button pButton type="button" label="Inicio" icon="fa-home" (click)="irInicio()"></button>
+  </div>
 
+  </p-toolbar>
         <div class="ui-g ui-fluid" style="background-color:#f6a828">
           <div class="ui-g-6 ui-lg-6 ui-md-6 ui-sm-12">
             <p-dropdown [options]="lugares()" [(ngModel)]="origen" [autoWidth]="false" >
@@ -30,7 +35,17 @@
           <div class="ui-g-12 ui-lg-12 ui-md-12 ui-sm-12">
             <textarea pInputTextarea [(ngModel)]="descripcion" style="height: 80px;"></textarea>
           </div>
-
+          <div class="ui-g-12 ui-lg-12 ui-md-12 ui-sm-12" style="background-color:#d5d5d5">
+            <h2>
+              {{origen?'Viajo de '+getServicioNombre(origen):'Selecciona origen, destino, fecha y hora de salida'}} {{destino&&origen?' a '+getServicioNombre(destino):''}} {{destino&&origen&&saleFecha?' el '+(saleFecha | date:'EEEE , d MMMM'):''}}  {{destino&&origen&&hora?'a las '+hora+':00':''}}
+            </h2>
+            <h3>
+              {{descripcion?descripcion:''}}
+            </h3>
+          </div>
+          <div class="ui-g-12 ui-lg-12 ui-md-12 ui-sm-12">
+            <button pButton type="button" label="Publicar Cupo" (click)="publicarCupo()" *ngIf="destino&&origen&&saleFecha"></button>
+          </div>
         </div>
 
 
