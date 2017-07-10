@@ -1,20 +1,65 @@
 <p-growl [value]="msgs" [life]="10000"></p-growl>
-<div style="background-image: -webkit-linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(assets/resources/css/backg/ibg.jpg);
-background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(assets/resources/css/backg/ibg.jpg);
-background-size: cover;
-background-position: center;
-height: 100vh;
-background-attachment: fixed;
+
+            <section class="section-piloto">
+
+              <div style="height:100%;width:100%;text-align:center; z-index: 100;">
+                              <div style="padding-top:10%">
+                              <img src="./assets/sources/logo.png" style="height:300px;"/>
+                              </div>
+
+                              <div style="margin-top:5%">
+                                  <img src="./assets/sources/loading.gif" *ngIf="cargando"/>
+                                  <button pButton type="button" label="Acceder" (click)="login()" *ngIf="!cargando"></button>
+                              </div>
+                          </div>
+                    </section>
 
 
-
-height:100%;width:100%;text-align:center; position: absolute; z-index: 100;">
-                <div style="padding-top:15%">
-                <img src="./assets/sources/logo.png" style="height:300px;"/>
-                </div>
-
-                <div style="margin-top:5%">
-                    <img src="./assets/sources/loading.gif" *ngIf="cargando"/>
-                    <button pButton type="button" label="Acceder" (click)="login()" *ngIf="!cargando"></button>
-                </div>
-            </div>
+                    <section class="section-testimonials">
+                                <div class="row">
+                                    <h2>Conéctate con otros de pégate la rodadita</h2>
+                                </div>
+                                <div class="row">
+                                  <div class="col span-1-of-3">
+                                      Ahora puedes compartir tu vehículo personal en viajes y conocer a otras personas. Ahorra dinero, si eres piloto. Tiempo, comodidad si eres pasajero. Con ExpressoRide
+                                      podemos mejorar la forma de viajar y compartir
+                                  </div>
+                                    <div class="col span-1-of-3">
+                                        <blockquote>
+                                             ¿Qué es ExpressoRide?
+                                            <cite>
+                                              Es una plataforma WEB que permite a las personas buscar y publicar cupos para viajar entre ciudades de manera fácil y rápida.
+                                            </cite>
+                                        </blockquote>
+                                    </div>
+                                    <div class="col span-1-of-3">
+                                        <blockquote>
+                                           ¿Cómo funciona ExpressoRide?
+                                            <cite>
+                                              Primero, debes acceder a la plataforma haciendo clic en el boton "Acceder". Una vez ingresado,
+                                              puedes seleccionar si eres Pasajero (que buscas cupo para vaiajar), o Piloto (que quieres publicar un cupo).
+                                              Según esto, verás la pantalla correspondiente para comenzar a buscar o publicar cupos.
+                                            </cite>
+                                        </blockquote>
+                                    </div>
+                                    <div class="col span-1-of-3">
+                                        <blockquote>
+                                    ¿Quienes pueden acceder a la plataforma?
+                                        <cite>
+                                          Únicamente personas con perfil en Facebook y que pertenezcan al grupo <a href="https://www.facebook.com/groups/502606019798663">Expreso Ibagué, Péguese La Rodadita !!!</a>
+                                        </cite>
+                                        </blockquote>
+                                    </div>
+                                    <div class="col span-1-of-3">
+                                        <blockquote>
+                                    ¿Por qué usar ExpressoRide?
+                                        <cite>
+                                          Porque vas a ahorrar tiempo en el proceso de buscar y publicar cupo para que puedas compartir el transporte.
+                                        <br/>
+                                        Usando ExpressoRide puedes conseguir puestos cómodos* para viajar y conocer a otras personas. Además se eres piloto te vas a ahorrar un dinero en tu viaje y además contribuír
+                                        con el medio ambiente.
+                                        </cite>
+                                        </blockquote>
+                                    </div>
+                                </div>
+                            </section>
