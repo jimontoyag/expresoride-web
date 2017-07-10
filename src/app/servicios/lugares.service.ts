@@ -11,7 +11,6 @@ export class LugaresService {
     this.database.list('/lugares').subscribe(lugares => {
       this.lugares = [];
       this.valorNombre = [];
-      this.lugares.push({label:'',value:null});
       lugares.forEach(lugar => {
         this.lugares.push({label:lugar.nombre, value: lugar.$key, urlBandera: lugar.urlBandera});
         this.valorNombre[lugar.$key] = lugar.nombre;

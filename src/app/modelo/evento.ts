@@ -1,13 +1,8 @@
 export class Evento {
-  id: string;
-  start: any;
-  end: any;
-  allDay: boolean;
+  key:string;
   descripcion: string;
-  destino: string;
-  origen: string;
-  usuario: string;
-  cupos: number;
+  hora: number;
   fotoUrl: string;
-  nombreUsuario: string;
+  nombrePiloto: string;
+  piloto: string;
 }
