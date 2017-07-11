@@ -22,6 +22,19 @@ destino: string;
   , private router: Router ) { }
 
   ngOnInit() {
+    let parametros = this.authService.parametros;
+    this.authService.parametros = null;
+    if(parametros){
+      if(parametros['fecha'] && parametros['origen'] && parametros['destino']){
+        this.origen = parametros['origen'];
+        this.destino = parametros['destino'];
+        let fechaSimple = parametros['fecha'];
+        if(fechaSimple.length == 8){
+          this.fecha = new Date(+fechaSimple.slice(0,4), (+fechaSimple.slice(4,6)-1), +fechaSimple.slice(6,8),0,0,0,0);
+          this.busquedaCupo();
+        }
+      }
+    }
   }
   lugares() : any[]{
     return this.lugaresService.lugares;

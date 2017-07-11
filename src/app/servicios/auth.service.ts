@@ -7,12 +7,13 @@ import 'rxjs/add/operator/delay';
 
 @Injectable()
 export class AuthService {
-  
+
   //Variables de la sesion
-  isLoggedIn: boolean = false;  
-  usuario: firebase.UserInfo = null; 
+  isLoggedIn: boolean = false;
+  usuario: firebase.UserInfo = null;
   token:string = null;
   redirectUrl: string = null;
+  parametros= null;
 
   login(usuario: firebase.UserInfo, token:string = null){
       this.usuario = usuario;

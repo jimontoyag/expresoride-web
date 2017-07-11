@@ -63,7 +63,7 @@ export class LoginComponent implements OnInit {
             this.cargando = false;
             let url = this.ags.redirectUrl;
              if(url != null){
-               this.router.navigate([url]);
+               this.router.navigateByUrl(url);
              }else{
               this.router.navigate(['/inicio']);
              }
