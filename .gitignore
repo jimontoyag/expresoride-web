@@ -48,3 +48,5 @@ Temporary Items
 
 /dist/
 /firebase-debug.log
+
+node_modules/

@@ -16,6 +16,7 @@ cupos: FirebaseListObservable<any[]>;
 fecha: Date;
 origen: string;
 destino: string;
+busco: boolean = false;
 
 
   constructor(private database : AngularFireDatabase, private lugaresService: LugaresService, private authService: AuthService, private datepipe: DatePipe
@@ -41,10 +42,9 @@ destino: string;
   }
 
   busquedaCupo(){
-  this.cupos = this.database.list('/cupos/'+'/'+this.origen+'/'+this.destino+'/'+this.datepipe.transform(this.fecha, 'y/MM/dd'));
-
-
-  // this.fecha.getFullYear()+'/'+this.fecha.getMonth()+'/'+this.fecha.getDate());
+    this.busco = true;
+    this.cupos = this.database.list('/cupos/'+'/'+this.origen+'/'+this.destino+'/'+this.datepipe.transform(this.fecha, 'y/MM/dd'));
+      // this.fecha.getFullYear()+'/'+this.fecha.getMonth()+'/'+this.fecha.getDate());
   }
   getServicioNombre(codigo:string):string{
   console.log(codigo);

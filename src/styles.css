@@ -52,61 +52,6 @@ section {
 .box {
     padding: 1%;
 }
-
-/* ----- HEADINGS ----- */
-h1,
-h2,
-h4,
-h3 {
-    font-weight: 300;
-    text-transform: uppercase;
-}
-
-h1 {
-    margin-top: 0;
-    margin-bottom: 20px;
-    color: #fff;
-    font-size: 240%;
-    word-spacing: 4px;
-    letter-spacing: 1px;
-}
-
-h2 {
-    font-size: 180%;
-    word-spacing: 2px;
-    text-align: center;
-    margin-bottom: 30px;
-    letter-spacing: 1px;
-}
-
-h3 {
-    font-size: 110%;
-    margin-bottom: 15px;
-}
-h4 {
-    font-size: 110%;
-    margin-bottom: 15px;
-}
-
-h2:after {
-    display: block;
-    height: 2px;
-    background-color: #e67e22;
-    content: " ";
-    width: 100px;
-    margin: 0 auto;
-    margin-top: 30px;
-}
-h4:after {
-  display: block;
-  height: 2px;
-  background-color: #e67e22;
-  content: " ";
-  width: 100%;
-  margin: 0 auto;
-  margin-top: 30px;
-}
-
 /* ----- PARAGRAPHS ----- */
 .long-copy {
     line-height: 145%;
@@ -722,4 +667,54 @@ footer p {
 .js--wp-2.animated,
 .js--wp-3.animated {
     opacity: 1;
+}
+.mdl-card + .mdl-card {
+  margin-top: 40px;
+}
+
+// Card styles
+
+.mdl-card--horizontal {
+  flex-direction: column;
+  height: 1vh; /* 1 */
+  padding-left: 150px;
+  width: 100%;
+
+  .mdl-card__media {
+    left: 0;
+    position: absolute;
+    width: 150px;
+  }
+
+  .mdl-card__supporting-text {
+    flex: 1 1 auto;
+    width: auto;
+  }
+}
+
+.mdl-card--horizontal-2 {
+  flex-direction: row;
+  flex-wrap: wrap;
+  min-height: 0px;
+
+  .mdl-card__title {
+    align-items: flex-start;
+    flex-direction: column;
+    flex: 1 auto;
+    float: left;
+  }
+  .mdl-card__title-text {
+    align-self: flex-start;
+  }
+  .mdl-card__media {
+    flex: 0 auto;
+    float: right;
+    height: 112px;
+    margin: 16px 16px 0 0;
+    width: 112px;
+  }
+  .mdl-card__actions {
+    clear: both;
+    flex: 1 auto;
+  }
 }

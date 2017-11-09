@@ -30,62 +30,33 @@
   </div>
 <div *ngIf="destino&&origen&&fecha">
 <button pButton type="button" label="Buscar" (click)="busquedaCupo()" ></button>
-<br/>
-<p-dataList [value]="cupos | async" [paginator]="true"   [rows]="5" >
-  <template let-eventod pTemplate="item">
+<br/><br/><br/>
+
+<div class="ui-g ui-fluid">
+  <div class="ui-g-4 ui-lg-3 ui-md-4 ui-sm-12 mdl-card mdl-shadow--2dp mdl-card--horizontal" *ngFor="let cupo of cupos | async">
+    <div class="mdl-card__media">
+    <img src="{{cupo.fotoUrl}}" alt="img">
+  </div>
+    <div class="mdl-card__title">
+      <h2 class="mdl-card__title-text">Welcome</h2>
+    </div>
+    <div class="mdl-card__supporting-text">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+      Mauris sagittis pellentesque lacus eleifend lacinia...
+    </div>
+    <div class="mdl-card__actions mdl-card--border">
+      <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" data-upgraded=",MaterialButton,MaterialRipple">Get Started</a>
+    </div>
+    <div class="mdl-card__menu">
+      <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" data-upgraded=",MaterialButton,MaterialRipple"><i class="material-icons">share</i></button>
+    </div>
+  </div>
+</div>
 
 
-
-                   <!-- <div class="ui-grid-col-6" style="text-align:center">
-                     <div class="ui-grid ui-grid-responsive ui-fluid">
-                       <div class="ui-grid-row">
-                               <div class="ui-grid-col-12"><a href="https://facebook.com/{{eventod.piloto}}" target="_blank"><img style="border-radius: 50%;height: 100px;width: 100px;" src="{{eventod.fotoUrl}}"></a></div>
-                           </div>
-                           <div class="ui-grid-row">
-                               <div class="ui-grid-col-12"><a style="font-style: oblique;font-weight: bold;color: rgb(246, 168, 40);" href="https://facebook.com/{{eventod.piloto}}" target="_blank">{{eventod.nombrePiloto}}</a></div>
-                           </div>
-                     </div>
-                      <div class="ui-grid-col-6">
-                         <div class="ui-grid-col-12" style="font-style: italic;">{{eventod.descripcion}} </div>
-                           <div class="ui-grid-col-12" style="font-weight: bold;"><h3>Hora: {{eventod.hora}}</h3></div>
-                     </div>
-                   </div> -->
-
-
-
-
-
-
-
-      <div class="ui-grid ui-grid-responsive ui-fluid" style="background-color:none;">
-        <h4></h4>
-
-          <div class="ui-grid-row">
-
-              <div class="ui-grid-col-3" style="text-align:center">
-                <div class="ui-grid ui-grid-responsive ui-fluid">
-                  <div class="ui-grid-row">
-                          <div class="ui-grid-col-12"><a href="https://facebook.com/{{eventod.piloto}}" target="_blank"><img style="border-radius: 50%;height: 100px;width: 100px;" src="{{eventod.fotoUrl}}"></a></div>
-                      </div>
-                      <div class="ui-grid-row">
-                          <div class="ui-grid-col-12"><a style="font-style: oblique;font-weight: bold;color: rgb(246, 168, 40);" href="https://facebook.com/{{eventod.piloto}}" target="_blank">{{eventod.nombrePiloto}}</a></div>
-                      </div>
-                </div>
-              </div>
-              <div class="ui-grid-col-9">
-                  <div class="ui-grid ui-grid-responsive ui-fluid">
-                      <div class="ui-grid-row">
-                          <div class="ui-grid-col-12" style="font-style: italic;">{{eventod.descripcion}}</div>
-                      </div>
-                      <div class="ui-grid-row">
-                            <div class="ui-grid-col-2" style="font-weight: bold;"><h3>Hora: {{eventod.hora}} </h3> </div>
-                        </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-  </template>
-</p-dataList>
+<div *ngIf="busco&&(cupos | async)?.length == 0">
+NO HAY CUPO
+</div>
 </div>
 </div>
 </div>
