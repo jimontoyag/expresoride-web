@@ -43,7 +43,7 @@ busco: boolean = false;
 
   busquedaCupo(){
     this.busco = true;
-    this.cupos = this.database.list('/cupos/'+'/'+this.origen+'/'+this.destino+'/'+this.datepipe.transform(this.fecha, 'y/MM/dd'));
+    this.cupos = this.database.list('/cupos/' + '/' + this.origen + '/' + this.destino + '/' + this.datepipe.transform(this.fecha, 'y/MM/dd'))
       // this.fecha.getFullYear()+'/'+this.fecha.getMonth()+'/'+this.fecha.getDate());
   }
   getServicioNombre(codigo:string):string{

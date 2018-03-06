@@ -1,78 +1,84 @@
 <p-growl [(value)]="msgs"></p-growl>
-<p-toolbar>
-  <div class="ui-toolbar-group-right">
-    <button pButton type="button" label="{{miscupos?'Publicar cupo':'Mis cupos'}}" (click)="misCupos()"></button>
-    <button pButton type="button" label="Inicio" icon="fa-home" (click)="irInicio()"></button>
+<nav class="navbar navbar-dark" style="background-color:#f6a828">
+  <a class="navbar-brand" href="#">Expreso Rider</a>
+  <ul class="navbar-nav d-flex flex-row">
+    <li class="nav-item">
+      <button pButton type="button" label="{{miscupos?'Publicar cupo':'Mis cupos'}}" (click)="misCupos()"></button>
+    </li>
+    <li class="nav-item">
+      <button pButton type="button" label="Inicio" icon="fa-home" (click)="irInicio()"></button>
+    </li>
+  </ul>
+</nav>
+
+<div class="ui-g ui-fluid section-piloto" style="background-color:#f6a828">
+  <br>
+  <div *ngIf="!miscupos" class="row justify-content-center m-0">
+    <div class="col-sm-5 col-12 my-2">
+      <p-dropdown [options]="lugares()" [(ngModel)]="origen" [autoWidth]="false" placeholder="Origen" (onChange)="cambioOri($event.value)">
+        <template let-ubi pTemplate="item">
+          <div class="ui-helper-clearfix" style="position: relative;height: 25px;">
+            <img src="{{ubi.urlBandera}}" style="width:24px;position:absolute;top:1px;left:5px" />
+            <div style="font-size:14px;float:right;margin-top:4px">{{ubi.label}}</div>
+          </div>
+        </template>
+      </p-dropdown>
+    </div>
+    <div class="col-sm-5 col-12 my-2">
+      <p-dropdown [options]="lugares()" [(ngModel)]="destino" [autoWidth]="false" placeholder="Destino" (onChange)="cambioDes($event.value)">
+        <template let-ubi pTemplate="item">
+          <div class="ui-helper-clearfix" style="position: relative;height: 25px;">
+            <img src="{{ubi.urlBandera}}" style="width:24px;position:absolute;top:1px;left:5px" />
+            <div style="font-size:14px;float:right;margin-top:4px">{{ubi.label}}</div>
+          </div>
+        </template>
+      </p-dropdown>
+    </div>
+    <div class="col-sm-5 col-12 my-2" >
+      <p-calendar [(ngModel)]="saleFecha" [monthNavigator]="true" [inline]="false" placeholder="Fecha de salida"></p-calendar>
+    </div>
+    <div class="col-sm-5 col-12 my-2">
+      <p-slider [(ngModel)]="hora" [min]="1" [max]="23"></p-slider>
+    </div>
+    <div class="col-sm-10 col-12 my-2">
+      <textarea pInputTextarea [(ngModel)]="descripcion" style="height: 80px;" placeholder="Escribe acá información útil para quien busca cupo. Número de contacto, tipo de auto, etc.. Se creativo para que el viaje te salga bien barato."></textarea>
+    </div>
+    <div class="col-sm-10 col-12 my-2">
+      <button pButton type="button" label="Publicar" (click)="publicarCupo()" *ngIf="destino&&origen&&saleFecha"></button>
+    </div>
+    <div class="col-sm-10 col-12 my-2">
+      <h5>
+        {{origen?'Viajo de '+getServicioNombre(origen):'Selecciona origen, destino, fecha y hora de salida'}} {{destino&&origen?' a '+getServicioNombre(destino):''}} {{destino&&origen&&saleFecha?' el '+(saleFecha | date:'EEEE , d MMMM'):''}}  {{destino&&origen&&hora?'a las '+hora+':00':''}}
+      </h5>
+      <h5>
+        {{descripcion?descripcion:''}}
+      </h5>
+    </div>
   </div>
 
-  </p-toolbar>
-        <div class="ui-g ui-fluid section-piloto" style="background-color:#f6a828">
-          <div *ngIf="!miscupos" style="width:100%">
-          <div class="ui-g-6 ui-lg-6 ui-md-6 ui-sm-12">
-            <p-dropdown [options]="lugares()" [(ngModel)]="origen" [autoWidth]="false" placeholder="Origen" (onChange)="cambioOri($event.value)">
-            				    <template let-ubi pTemplate="item">
-            						<div class="ui-helper-clearfix" style="position: relative;height: 25px;">
-            							<img src="{{ubi.urlBandera}}" style="width:24px;position:absolute;top:1px;left:5px" />
-            							<div style="font-size:14px;float:right;margin-top:4px">{{ubi.label}}</div>
-            						</div>
-            					</template>
-            				</p-dropdown>
-          </div>
-          <div class="ui-g-6 ui-lg-6 ui-md-6 ui-sm-12">
-            <p-dropdown [options]="lugares()" [(ngModel)]="destino" [autoWidth]="false" placeholder="Destino" (onChange)="cambioDes($event.value)">
-            				    <template let-ubi pTemplate="item">
-            						<div class="ui-helper-clearfix" style="position: relative;height: 25px;">
-            							<img src="{{ubi.urlBandera}}" style="width:24px;position:absolute;top:1px;left:5px" />
-            							<div style="font-size:14px;float:right;margin-top:4px">{{ubi.label}}</div>
-            						</div>
-            					</template>
-            				</p-dropdown>
-          </div>
-          <div class="ui-g-6 ui-lg-6 ui-md-6 ui-sm-12" >
-            <p-calendar [(ngModel)]="saleFecha" [monthNavigator]="true" [inline]="false" placeholder="Fecha de salida"></p-calendar>
-          </div>
-          <div class="ui-g-6 ui-lg-6 ui-md-6 ui-sm-12">
-            <p-slider [(ngModel)]="hora" [min]="1" [max]="23"></p-slider>
-          </div>
-          <div class="ui-g-12 ui-lg-12 ui-md-12 ui-sm-12">
-            <textarea pInputTextarea [(ngModel)]="descripcion" style="height: 80px;" placeholder="Escribe acá información útil para quien busca cupo. Número de contacto, tipo de auto, etc.. Se creativo para que el viaje te salga bien barato."></textarea>
-          </div>
-          <div class="ui-g-12 ui-lg-12 ui-md-12 ui-sm-12">
-            <button pButton type="button" label="Publicar" (click)="publicarCupo()" *ngIf="destino&&origen&&saleFecha"></button>
-          </div>
-          <div class="ui-g-12 ui-lg-12 ui-md-12 ui-sm-12">
-            <h2>
-              {{origen?'Viajo de '+getServicioNombre(origen):'Selecciona origen, destino, fecha y hora de salida'}} {{destino&&origen?' a '+getServicioNombre(destino):''}} {{destino&&origen&&saleFecha?' el '+(saleFecha | date:'EEEE , d MMMM'):''}}  {{destino&&origen&&hora?'a las '+hora+':00':''}}
-            </h2>
-            <h3>
-              {{descripcion?descripcion:''}}
-            </h3>
+  <div class="ui-g-12 ui-lg-12 ui-md-12 ui-sm-12" *ngIf="miscupos">
+    <p-dataList [value]="misEventos | async" [paginator]="true" [rows]="5">
+      <template let-eventod pTemplate="item">
+        <div class="ui-grid ui-grid-responsive ui-fluid" style="font-size:16px;padding:20px;border-bottom:1px solid #D5D5D5;">
+          <div class="ui-grid-row">
+            <div class="ui-grid-col-12">
+              <div class="ui-grid ui-grid-responsive ui-fluid">
+                <div class="ui-grid-row">
+                  <div class="ui-grid-col-2" style="font-style: italic;">{{fechaAsimpleDeTexto(eventod.fecha)}}</div>
+                  <div class="ui-grid-col-4" style="font-style: italic;">{{'De: '+getServicioNombre(eventod.origen)}}</div>
+                  <div class="ui-grid-col-4" style="font-style: italic;">{{'A: '+getServicioNombre(eventod.destino)}}</div>
+                  <div class="ui-grid-col-2" style="font-style: italic;"><button pButton type="button" icon="fa-trash-o" (click)="eliminarCupo(eventod)"></button></div>
+                </div>
+                <br/>
+                <div class="ui-grid-row">
+                    {{eventod.descripcion}}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-
-<div class="ui-g-12 ui-lg-12 ui-md-12 ui-sm-12" *ngIf="miscupos">
-          <p-dataList [value]="misEventos | async" [paginator]="true" [rows]="5">
-  		    <template let-eventod pTemplate="item">
-  		        <div class="ui-grid ui-grid-responsive ui-fluid" style="font-size:16px;padding:20px;border-bottom:1px solid #D5D5D5;">
-  		            <div class="ui-grid-row">
-  		                <div class="ui-grid-col-12">
-  		                    <div class="ui-grid ui-grid-responsive ui-fluid">
-  		                        <div class="ui-grid-row">
-  		                            <div class="ui-grid-col-2" style="font-style: italic;">{{fechaAsimpleDeTexto(eventod.fecha)}}</div>
-                                   <div class="ui-grid-col-4" style="font-style: italic;">{{'De: '+getServicioNombre(eventod.origen)}}</div>
-                                    <div class="ui-grid-col-4" style="font-style: italic;">{{'A: '+getServicioNombre(eventod.destino)}}</div>
-                                    <div class="ui-grid-col-2" style="font-style: italic;"><button pButton type="button" icon="fa-trash-o" (click)="eliminarCupo(eventod)"></button></div>
-  		                        </div>
-  		                        <br/>
-  		                        <div class="ui-grid-row">
-  		                            {{eventod.descripcion}}
-  		                        </div>
-  		                    </div>
-  		                </div>
-  		            </div>
-  		        </div>
-  		    </template>
-  </p-dataList>
-</div>
+      </template>
+    </p-dataList>
+  </div>
 
 </div>
