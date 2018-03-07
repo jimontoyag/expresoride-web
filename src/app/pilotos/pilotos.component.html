@@ -11,9 +11,9 @@
   </ul>
 </nav>
 
-<div class="ui-g ui-fluid section-piloto" style="background-color:#f6a828">
+<div class="ui-fluid section-piloto" style="background-color:#f6a828">
   <br>
-  <div *ngIf="!miscupos" class="row justify-content-center m-0">
+  <div *ngIf="!miscupos" class="row justify-content-center">
     <div class="col-sm-5 col-12 my-2">
       <p-dropdown [options]="lugares()" [(ngModel)]="origen" [autoWidth]="false" placeholder="Origen" (onChange)="cambioOri($event.value)">
         <template let-ubi pTemplate="item">
