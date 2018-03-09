@@ -81,7 +81,7 @@ const myFirebaseAuthConfig = {
     ToolbarModule,
     SpinnerModule,
     SliderModule,
-    AngularFireModule.initializeApp(firebaseConfig, myFirebaseAuthConfig )
+    AngularFireModule.initializeApp(firebaseConfig, myFirebaseAuthConfig),
   ],
   exports:[RouterModule],
   providers: [ AuthService, FacebookService, AuthGuard, LugaresService, DatePipe],

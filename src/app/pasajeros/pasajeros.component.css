@@ -48,3 +48,35 @@
     flex: 1 auto;
   }
 }
+
+p, h4 {
+  margin: 0;
+}
+
+.cupos {
+  padding: 15px;
+  }
+  .cupos .cupos-item {
+    font-size: 16px;
+    border: 1px solid white;
+    border-radius: 8px;
+    margin: 15px 8px;
+    display: flex;
+    align-items: center;
+    padding: 8px 15px;}
+    .cupos .cupos-item-top {
+      margin-right: 18px;}
+      .cupos .cupos-item-top img {
+        width: 80px;
+        height: 80px;
+        border: 1px solid white;
+        border-radius: 50%;}
+    .cupos .cupos-item-bottom {
+      color: white;}
+      .cupos .cupos-item-bottom p {
+        margin: 0;
+      }
+
+.row {
+  margin: 0 auto;
+}

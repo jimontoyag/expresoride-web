@@ -4,9 +4,9 @@
                 <div style="padding-top:15%">
                 <img src="./assets/sources/logo.png" style="height:300px;"/>
                 </div>
-                
+
                 <div style="margin-top:5%">
-                    <img src="./assets/sources/loading.gif" />                    
+                    <img src="./assets/sources/loading.gif" />
                 </div>
             </div>  -->
             
@@ -19,18 +19,18 @@
                 <div style="padding-top:15%">
                 <img src="./assets/sources/logo.png" style="height:300px;"/>
                 </div>
-                
+
                 <div style="margin-top:5%">
-                    <img src="./assets/sources/loading.gif" *ngIf="cargando"/>                    
+                    <img src="./assets/sources/loading.gif" *ngIf="cargando"/>
                     <button pButton type="button" label="Acceder" (click)="login()" *ngIf="!cargando"></button>
                 </div>
-            </div> 
+            </div>
 
 <p-toolbar>
 	<div class="ui-grid ui-grid-responsive ui-fluid">
 		<div class="ui-grid-row">
 			<div class="ui-grid-col-2">
-				<div class="ui-grid-row">Origen </div>			
+				<div class="ui-grid-row">Origen </div>
 		        <p-dropdown [options]="lugares" [(ngModel)]="filtroOrigen" [autoWidth]="false" >
 				    <template let-ubi pTemplate="item">
 						<div class="ui-helper-clearfix" style="position: relative;height: 25px;">
@@ -41,7 +41,7 @@
 				</p-dropdown>
 			</div>
 			<div class="ui-grid-col-2">
-				<div class="ui-grid-row">Destino </div>	
+				<div class="ui-grid-row">Destino </div>
 				<p-dropdown [options]="lugares" [(ngModel)]="filtroDestino" [autoWidth]="false" >
 				    <template let-ubi pTemplate="item">
 						<div class="ui-helper-clearfix" style="position: relative;height: 25px;">
@@ -52,15 +52,15 @@
 				</p-dropdown>
 			</div>
 			<div class="ui-grid-col-3">
-				<div class="ui-grid-row">Entre </div>	
-				<p-calendar [(ngModel)]="filtroStart" [locale]="es" [monthNavigator]="true" [showTime]="true"></p-calendar> 
+				<div class="ui-grid-row">Entre </div>
+				<p-calendar [(ngModel)]="filtroStart" [locale]="es" [monthNavigator]="true" [showTime]="true"></p-calendar>
 			</div>
 			<div class="ui-grid-col-3">
-				<div class="ui-grid-row">Y </div>	
-				<p-calendar [(ngModel)]="filtroEnd" [locale]="es" [monthNavigator]="true" [showTime]="true"></p-calendar>   
+				<div class="ui-grid-row">Y </div>
+				<p-calendar [(ngModel)]="filtroEnd" [locale]="es" [monthNavigator]="true" [showTime]="true"></p-calendar>
 			</div>
 			<div class="ui-grid-col-2">
-				<button pButton type="button" icon="fa-search" label="Buscar" (click)="filtrar()"></button>  
+				<button pButton type="button" icon="fa-search" label="Buscar" (click)="filtrar()"></button>
 				<button pButton type="button" icon="fa-eraser" (click)="limpiaFiltro()" label="Limpiar filtro"></button>
 			</div>
 		</div>
@@ -69,7 +69,7 @@
 				<button pButton type="button" label="Ofrecer cupos" icon="fa-plus" (click)="preCrearEvento()" *ngIf="dispSchedule"></button>
 			</div>
 		</div>
-	 </div> 		
+	 </div>
 </p-toolbar>
 
 <p-tabView>
@@ -114,7 +114,7 @@
 		</p-dataList>
     </p-tabPanel>
     <p-tabPanel header="Calendario">
-        <p-schedule [events]="eventos" (onEventClick)="showDialog($event)" *ngIf="dispSchedule" [header]="header" [timezone]="'local'" [locale]="'es'"></p-schedule> 
+        <p-schedule [events]="eventos" (onEventClick)="showDialog($event)" *ngIf="dispSchedule" [header]="header" [timezone]="'local'" [locale]="'es'"></p-schedule>
     </p-tabPanel>
     <p-tabPanel header="Mis cupos">
         <p-dataTable [value]="misEventos" [responsive]="true">
@@ -122,12 +122,12 @@
 		    <p-column field="origen" header="Origen">
 		    	<template let-col let-eventedit="rowData" pTemplate="body">
 		            {{eventedit[col.field]=='bgt'?'Bogotá':'Ibagué'}} <img src="./assets/sources/{{eventedit[col.field]}}.png" style="height:20px;"/>
-		        </template>		    	
+		        </template>
 		    </p-column>
 		    <p-column field="destino" header="Destino">
 		    	<template let-col let-eventedit="rowData" pTemplate="body">
 		            {{eventedit[col.field]=='bgt'?'Bogotá':'Ibagué'}} <img src="./assets/sources/{{eventedit[col.field]}}.png" style="height:20px;"/>
-		        </template>	
+		        </template>
 		    </p-column>
 		    <p-column field="start" header="Inicio">
 		    	<template let-col let-eventedit="rowData" pTemplate="body">
@@ -145,11 +145,11 @@
 		            <button type="button" pButton (click)="eliminarEvento(eventedit.id)" icon="fa-trash-o"></button>
 		        </template>
 		    </p-column>
-		</p-dataTable> 
+		</p-dataTable>
 	</p-tabPanel>
-</p-tabView>	
-	
-	
+</p-tabView>
+
+
 		<p-dialog  [(visible)]="display" [modal]="true" [responsive]="true" *ngIf="display" >
 				<header>
 				<a href="https://facebook.com/{{event.usuario}}" target="_blank">
@@ -158,14 +158,14 @@
 					</a>
 				</header>
 		        <div class="ui-grid ui-grid-responsive ui-fluid" style="font-size:16px;padding:20px;border-bottom:1px solid #D5D5D5;">
-		            
+
 		                        <div class="ui-grid-row">
 		                            <div class="ui-grid-col-12" style="font-style: italic;">{{event.descripcion}}</div>
 		                        </div>
 		                        <br/>
 		                        <div class="ui-grid-row">
 		                            <div class="ui-grid-col-4" style="font-weight: bold;">Origen:</div>
-		                            <div class="ui-grid-col-8">{{event.origen=='bgt'?'Bogotá':'Ibagué'}} <img src="./assets/sources/{{event.origen}}.png" style="height:20px;"/></div>                        
+		                            <div class="ui-grid-col-8">{{event.origen=='bgt'?'Bogotá':'Ibagué'}} <img src="./assets/sources/{{event.origen}}.png" style="height:20px;"/></div>
 		                        </div>
 		                        <br/>
 		                        <div class="ui-grid-row">
@@ -181,12 +181,12 @@
 		                        </div>
 		        </div>
 		</p-dialog>
-		
+
 		<p-dialog [(visible)]="displayCrear" [modal]="true" *ngIf="displayCrear" [responsive]="true">
 		       <header>
 					<img src="{{usuario.photoURL}}" class="profile-picture"/>
 					<p class="profile-name">{{usuario.displayName}}</p>
-				</header>  
+				</header>
 				<div class="ui-grid ui-grid-responsive ui-fluid" style="overflow-y: scroll;height:400px;font-size:16px;padding:20px;border-bottom:1px solid #D5D5D5;">
 						<div class="ui-grid-row">
 			                <div class="ui-grid-col-4" style="font-weight: bold;">Origen:</div>
@@ -199,7 +199,7 @@
 								        </div>
 								    </template>
 		        				</p-dropdown>
-			                </div>			                
+			                </div>
 			            </div>
 			            <div class="ui-grid-row">
 			            	<div class="ui-grid-col-4" style="font-weight: bold;">Destino:</div>
@@ -217,34 +217,34 @@
 			            <div class="ui-grid-row">
 			                <div class="ui-grid-col-4" style="font-weight: bold;">Hora salida:</div>
 			                <div class="ui-grid-col-8">
-				                <p-calendar [(ngModel)]="event.start" [locale]="es" [showTime]="true" [inline]="true" [monthNavigator]="true" (onSelect)="cambiaFechaFin()"></p-calendar> 
+				                <p-calendar [(ngModel)]="event.start" [locale]="es" [showTime]="true" [inline]="true" [monthNavigator]="true" (onSelect)="cambiaFechaFin()"></p-calendar>
 			                </div>
 			                <div class="ui-grid-col-2"></div>
 			            </div>
 			            <br/>
-			            <div class="ui-grid-row">			            
+			            <div class="ui-grid-row">
 			                <div class="ui-grid-col-4" style="font-weight: bold;">máximo:</div>
 			                <div class="ui-grid-col-8">
-				                <p-calendar [(ngModel)]="event.end" [locale]="es" [showTime]="true" [inline]="true" [monthNavigator]="true"></p-calendar> 
+				                <p-calendar [(ngModel)]="event.end" [locale]="es" [showTime]="true" [inline]="true" [monthNavigator]="true"></p-calendar>
 			                </div>
 			                <div class="ui-grid-col-2"></div>
 			            </div>
 	       			 	<div class="ui-grid-row">
 	       			 		<div class="ui-grid-col-12" style="font-weight: bold;">
 	       			 			Descripción:
-	       			 		</div>							       			 
+	       			 		</div>
 						</div>
 						<div class="ui-grid-row">
 	       			 		<div class="ui-grid-col-12">
 	       			 			<textarea pInputTextarea [(ngModel)]="event.descripcion" style="height: 80px;"></textarea>
-	       			 		</div>							       			 
+	       			 		</div>
 						</div>
 	       			 	<br/>
 	       			 	<div class="ui-grid-row">
 	       			 		<div class="ui-grid-col-12">
 	       			 			<button pButton type="button" label="Publicar cupo" (click)="crearEvento()" ></button>
-	       			 		</div>							       			 
+	       			 		</div>
 						</div>
 						<br/>
-				</div>	  			
+				</div>
 		</p-dialog> -->
