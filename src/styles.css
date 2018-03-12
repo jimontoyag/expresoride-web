@@ -1,6 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 /*
-Orange color: #e67e22
+Orange color: #fbcb09
 
 */
 
@@ -20,8 +20,9 @@ body {
     background-color: #fff;
     color: #555;
     /* font-family: 'Lato', 'Arial', sans-serif; */
-    font-weight: 300;
-    font-size: 20px;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
     text-rendering: optimizeLegibility;
     overflow-x: hidden;
 }
@@ -69,7 +70,7 @@ section {
 .icon-big {
     font-size: 350%;
     display: block;
-    color: #e67e22;
+    color: #fbcb09;
     margin-bottom: 10px;
 }
 
@@ -77,7 +78,7 @@ section {
     display: inline-block;
     width: 30px;
     text-align: center;
-    color: #e67e22;
+    color: #fbcb09;
     font-size: 120%;
     margin-right: 10px;
 
@@ -91,10 +92,10 @@ section {
 
 a:link,
 a:visited {
-    color: #e67e22;
+    color: #fbcb09;
     text-decoration: none;
     padding-bottom: 1px;
-    /*border-bottom: 1px solid #e67e22;*/
+    /*border-bottom: 1px solid #fbcb09;*/
     -webkit-transition: border-bottom 0.2s, color 0.2s;
     transition: border-bottom 0.2s, color 0.2s;
 }
@@ -121,33 +122,33 @@ input[type=submit] {
 .btn-full:link,
 .btn-full:visited,
 input[type=submit] {
-    background-color: #e67e22;
-    border: 1px solid #e67e22;
+    background-color: #fbcb09;
+    border: 1px solid #fbcb09;
     color: #fff;
     margin-right: 15px;
 }
 
 .btn-ghost:link,
 .btn-ghost:visited {
-    border: 1px solid #e67e22;
-    color: #e67e22;
+    border: 1px solid #fbcb09;
+    color: #fbcb09;
 }
 
 .btn:hover,
 .btn:active,
 input[type=submit]:hover,
 input[type=submit]:active {
-    background-color: #cf6d17;
+    background-color: #fbcb09;
 }
 
 .btn-full:hover,
 .btn-full:active {
-    border: 1px solid #cf6d17;
+    border: 1px solid #fbcb09;
 }
 
 .btn-ghost:hover,
 .btn-ghost:active {
-    border: 1px solid #cf6d17;
+    border: 1px solid #fbcb09;
     color: #fff;
 }
 
@@ -169,6 +170,10 @@ header {
     border: none;
     background: rgba(56, 36, 36, 0);
     color: #333333;
+}
+
+.ui-dropdown {
+    border: 2px solid #fbcb09 !important;
 }
 
 .hero-text-box {
@@ -222,7 +227,7 @@ header {
 
 .main-nav li a:hover,
 .main-nav li a:active {
-    border-bottom: 2px solid #e67e22;
+    border-bottom: 2px solid #fbcb09;
 }
 
 
@@ -355,11 +360,11 @@ header {
 }
 
 .works-step div {
-    color: #e67e22;
+    color: #fbcb09;
     font-size: 150%;
     height: 54px;
     width: 54px;
-    border: 2px solid #e67e22;
+    border: 2px solid #fbcb09;
     border-radius: 50%;
     display: inline-block;
     text-align: center;
@@ -418,7 +423,7 @@ header {
     background-size: cover;
     color: #fff;
     background-attachment: fixed;
-    height: 100%;
+    height: calc(100% - 52px);
 }
 
 
@@ -428,7 +433,7 @@ header {
     background-size: cover;
     color: #fff;
     background-attachment: fixed;
-    height: 100%;
+    height: calc(100% - 52px);
 }
 
 .section-ibg {
@@ -508,7 +513,7 @@ cite img {
     font-size: 300%;
     margin-bottom: 10px;
     font-weight: 100;
-    color: #e67e22;
+    color: #fbcb09;
 }
 
 .plan-price span {

@@ -80,3 +80,9 @@ p, h4 {
 .row {
   margin: 0 auto;
 }
+
+.section-pasajero {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
