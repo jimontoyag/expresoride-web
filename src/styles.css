@@ -94,16 +94,17 @@ a:link,
 a:visited {
     color: #fbcb09;
     text-decoration: none;
-    padding-bottom: 1px;
+    /* padding-bottom: 1px; */
     /*border-bottom: 1px solid #fbcb09;*/
-    -webkit-transition: border-bottom 0.2s, color 0.2s;
-    transition: border-bottom 0.2s, color 0.2s;
+    /* -webkit-transition: border-bottom 0.2s, color 0.2s; */
+    /* transition: border-bottom 0.2s, color 0.2s; */
 }
 
 a:hover,
 a:active {
     color: #555;
     border-bottom: 1px solid transparent;
+    text-decoration: none;
 }
 
 /* ----- BUTTONS ----- */
@@ -417,25 +418,6 @@ header {
     background-size: cover;
 }
 
-.section-pasajero {
-    background-image: -webkit-linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.5)), url(assets/resources/css/backg/pasajbckg.jpg);
-    background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.5)), url(assets/resources/css/backg/pasajbckg.jpg);
-    background-size: cover;
-    color: #fff;
-    background-attachment: fixed;
-    height: calc(100% - 52px);
-}
-
-
-.section-piloto {
-    background-image: -webkit-linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.5)), url(assets/resources/css/backg/roads.jpg);
-    background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.5)), url(assets/resources/css/backg/roads.jpg);
-    background-size: cover;
-    color: #fff;
-    background-attachment: fixed;
-    height: calc(100% - 52px);
-}
-
 .section-ibg {
     background-image: -webkit-linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url(assets/resources/css/backg/ibg.jpg);
     background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url(assets/resources/css/backg/ibg.jpg);
@@ -548,9 +530,9 @@ input[type=email],
 select,
 textarea {
     width: 100%;
-    padding: 7px;
+    padding: 4px 7px;
     border-radius: 3px;
-    border: 1px solid #ccc;
+    border: 2px solid #fbcb09 !important;
 }
 
 textarea {
@@ -673,53 +655,12 @@ footer p {
 .js--wp-3.animated {
     opacity: 1;
 }
-.mdl-card + .mdl-card {
-  margin-top: 40px;
-}
 
-// Card styles
-
-.mdl-card--horizontal {
-  flex-direction: column;
-  height: 1vh; /* 1 */
-  padding-left: 150px;
-  width: 100%;
-
-  .mdl-card__media {
-    left: 0;
-    position: absolute;
-    width: 150px;
-  }
-
-  .mdl-card__supporting-text {
-    flex: 1 1 auto;
-    width: auto;
-  }
-}
-
-.mdl-card--horizontal-2 {
-  flex-direction: row;
-  flex-wrap: wrap;
-  min-height: 0px;
-
-  .mdl-card__title {
-    align-items: flex-start;
-    flex-direction: column;
-    flex: 1 auto;
-    float: left;
-  }
-  .mdl-card__title-text {
-    align-self: flex-start;
-  }
-  .mdl-card__media {
-    flex: 0 auto;
-    float: right;
-    height: 112px;
-    margin: 16px 16px 0 0;
-    width: 112px;
-  }
-  .mdl-card__actions {
-    clear: both;
-    flex: 1 auto;
-  }
+.button {
+    background: #fbcb09 !important;
+    border: 0 !important;
+    height: 40px;
+    color: black !important;
+    font-weight: 900 !important;
+    font-size: 1.1em !important;
 }

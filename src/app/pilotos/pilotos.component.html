@@ -1,5 +1,5 @@
 <p-growl [(value)]="msgs"></p-growl>
-<nav class="navbar navbar-dark" style="background-color:#f6a828">
+<nav class="navbar navbar-dark" style="background-color:#fbcb09">
   <a class="navbar-brand" href="#">Expreso Rider</a>
   <ul class="navbar-nav d-flex flex-row">
     <li class="nav-item">
@@ -12,9 +12,15 @@
 </nav>
 
 <div class="ui-fluid section-piloto" style="background-color:#f6a828">
+
   <br>
-  <div *ngIf="!miscupos" class="row justify-content-center">
-    <div class="col-sm-5 col-12 my-2">
+
+  <div *ngIf="!miscupos" class="row justify-content-center col-sm-9 col-10">
+
+
+    <h2 class="col-12 col-sm-10 my-2">Creación de viaje</h2>
+
+    <div class="col-sm-5  col-12 my-3">
       <p-dropdown [options]="lugares()" [(ngModel)]="origen" [autoWidth]="false" placeholder="Origen" (onChange)="cambioOri($event.value)">
         <template let-ubi pTemplate="item">
           <div class="ui-helper-clearfix" style="position: relative;height: 25px;">
@@ -24,7 +30,7 @@
         </template>
       </p-dropdown>
     </div>
-    <div class="col-sm-5 col-12 my-2">
+    <div class="col-sm-5  col-12 my-3">
       <p-dropdown [options]="lugares()" [(ngModel)]="destino" [autoWidth]="false" placeholder="Destino" (onChange)="cambioDes($event.value)">
         <template let-ubi pTemplate="item">
           <div class="ui-helper-clearfix" style="position: relative;height: 25px;">
@@ -44,10 +50,10 @@
       <textarea pInputTextarea [(ngModel)]="descripcion" style="height: 80px;" placeholder="Escribe acá información útil para quien busca cupo. Número de contacto, tipo de auto, etc.. Se creativo para que el viaje te salga bien barato."></textarea>
     </div>
     <div class="col-sm-10 col-12 my-2">
-      <button pButton type="button" label="Publicar" (click)="publicarCupo()" *ngIf="destino&&origen&&saleFecha"></button>
+      <button pButton type="button" label="Publicar" (click)="publicarCupo()" class="button" *ngIf="destino&&origen&&saleFecha"></button>
     </div>
     <div class="col-sm-10 col-12 my-2">
-      <h5>
+      <h5 class="text-center">
         {{origen?'Viajo de '+getServicioNombre(origen):'Selecciona origen, destino, fecha y hora de salida'}} {{destino&&origen?' a '+getServicioNombre(destino):''}} {{destino&&origen&&saleFecha?' el '+(saleFecha | date:'EEEE , d MMMM'):''}}  {{destino&&origen&&hora?'a las '+hora+':00':''}}
       </h5>
       <h5>
@@ -56,7 +62,8 @@
     </div>
   </div>
 
-  <div class="ui-g-12 ui-lg-12 ui-md-12 ui-sm-12" *ngIf="miscupos">
+
+  <div class="container" *ngIf="miscupos">
     <p-dataList [value]="misEventos | async" [paginator]="true" [rows]="5">
       <template let-eventod pTemplate="item">
         <div class="ui-grid ui-grid-responsive ui-fluid" style="font-size:16px;padding:20px;border-bottom:1px solid #D5D5D5;">

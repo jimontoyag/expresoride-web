@@ -1,3 +1,15 @@
 .row {
   margin: 0 auto;
 }
+
+.section-piloto {
+  background-image: -webkit-linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.5)), url(assets/resources/css/backg/roads.jpg);
+  background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.5)), url(assets/resources/css/backg/roads.jpg);
+  background-size: cover;
+  color: #fff;
+  background-attachment: fixed;
+  height: calc(100% - 52px);
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
